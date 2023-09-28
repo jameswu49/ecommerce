@@ -10,7 +10,7 @@ import { useSidebarContext } from '../context/sidebarContext';
 
 export default function Navbar() {
     const [currentTimeString, setCurrentTimeString] = useState('');
-    const { handleMenuToggle, isOpen, id, handleActiveLink } = useSidebarContext()
+    const { handleMenuToggle, isOpen, id, handleActiveLink, setId } = useSidebarContext()
 
     const updateTime = () => {
         const currentDate = new Date();
@@ -48,7 +48,7 @@ export default function Navbar() {
                         />
                     </div>
                 </Link> :
-                    <Link href={'/'}>
+                    <Link href={'/'} onClick={() => setId(-1)}>
                         <div className="relative w-40 h-16 cursor-pointer lg:w-48">
                             <Image src={logo}
                                 alt={'banner'}

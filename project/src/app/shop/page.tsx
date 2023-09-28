@@ -1,7 +1,7 @@
-export default function News() {
+export default function Shop() {
     return (
         <section>
-            news
+            shop
         </section>
     )
 }

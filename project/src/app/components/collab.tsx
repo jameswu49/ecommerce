@@ -14,7 +14,7 @@ export default function Collabs() {
 
     return (
         <section className="mb-5 md:h-[70rem] lg:w-full lg:flex lg:relative lg:max-h-[60vh]">
-            <div className="bg-[red] w-full h-96 px-5 text-white flex flex-col justify-center lg:w-[55%] lg:h-[70%] lg:absolute lg:z-10 lg:left-0 lg:pl-10">
+            <div className="bg-[red] w-full h-[50vh] px-5 text-white flex flex-col justify-center md:h-[30vh] lg:w-[55%] lg:h-[70%] lg:absolute lg:z-10 lg:left-0 lg:pl-10">
                 <h1 className="font-bold text-xl text-center md:text-2xl lg:text-[3vw] lg:text-start">{collabData[id].title} x SUPREME</h1>
                 <p className="text-sm pt-5 lg:pr-20 lg:leading-6 lg:text-[1.5vh]">{collabData[id].description}</p>
                 <div className="mt-5 flex justify-center md:mt-10 lg:justify-start">
@@ -23,22 +23,21 @@ export default function Collabs() {
             </div>
             <div className="hidden lg:flex w-1/2 h-full items-end justify-evenly">
                 {collabData.map((data, index) => (
-                    <div key={index} className="w-28 h-28 flex justify-evenly cursor-pointer relative">
-                        <Image src={collabData[index].src} alt={collabData[index].alt} fill onClick={() => handleClick(index)} />
+                    <div key={index} className="w-28 h-28 flex justify-evenly cursor-pointer">
+                        <Image src={collabData[index].src} alt={collabData[index].alt} onClick={() => handleClick(index)} />
                     </div>
                 ))}
             </div>
             <div className="lg:w-1/2 lg:ml-auto">
-                <div className="relative w-auto h-64 mt-5 md:h-[30rem] lg:mt-0 lg:h-[60vh]">
-                    <Image src={collabData[id].src} alt={'shoes'} fill />
+                <div className="mt-5 flex items-center w-full h-80 md:h-[35rem] justify-center lg:h-full lg:mt-0">
+                    <Image src={collabData[id].src} alt={'shoes'} className='object-fill h-full md:w-full' />
                 </div>
                 <div className="w-full h-auto flex justify-evenly mx-auto mt-5 lg:hidden">
                     {collabData.map((data, index) => (
-                        <div key={index} className="w-full h-12 cursor-pointer relative md:h-32">
-                            <Image src={collabData[index].src} alt={collabData[index].alt} fill onClick={() => handleClick(index)} />
+                        <div key={index} className="w-full cursor-pointer overflow-hidden relative md:h-32">
+                            <Image src={collabData[index].src} alt={collabData[index].alt} onClick={() => handleClick(index)} className='object-fill h-full' />
                         </div>
                     ))}
-
                 </div>
             </div>
         </section >
