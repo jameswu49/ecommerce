@@ -1,13 +1,13 @@
 import Image from "../../../node_modules/next/image"
-import banner from "../images/banner2.png"
+import banner from "../images/banner.png"
 
 export default function Banner() {
     return (
-        <section className="flex items-center h-[15rem] md:h-[30rem] lg:h-[80vh]">
-            <div className="relative w-full h-[15rem] md:h-[30rem] lg:h-[80vh]">
+        <section className="flex items-center h-auto">
+            <div className="relative w-full h-auto">
                 <Image src={banner}
                     alt={'banner'}
-                    fill
+                    priority={true}
                 />
             </div>
         </section>
