@@ -9,7 +9,7 @@ export default function About() {
                     <Image src={kermit} alt={'Kermit wearing a shirt'} />
                 </div>
                 <div className="flex flex-col h-[40rem] md:h-[30rem] lg:h-3/4 lg:w-3/4">
-                    <div className="flex flex-col h-full my-5 lg:my-0 lg:gap-y-8 lg:justify-end lg:w-3/4 lg:text-[2vh]">
+                    <div className="flex flex-col gap-y-4 h-full my-5 md:justify-center lg:my-0 lg:gap-y-8 lg:w-3/4 lg:text-[2vh]">
                         <p>
                             In April 1994, Supreme opened its doors on Lafayette Street in downtown Manhattan and became the home of New York City skate culture.
                             At its core was a group of neighborhood kids, New York skaters, and local artists who became the store&apos;s staff, crew, and customers.

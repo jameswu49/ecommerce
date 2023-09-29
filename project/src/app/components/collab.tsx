@@ -29,7 +29,7 @@ export default function Collabs() {
                 ))}
             </div>
             <div className="lg:w-1/2 lg:ml-auto">
-                <div className="mt-5 flex items-center w-full h-80 md:h-[35rem] justify-center lg:h-full lg:mt-0">
+                <div className="mt-5 flex items-center w-full h-64 md:h-[35rem] justify-center lg:h-full lg:mt-0">
                     <Image src={collabData[id].src} alt={'shoes'} className='object-fill h-full md:w-full' />
                 </div>
                 <div className="w-full h-auto flex justify-evenly mx-auto mt-5 lg:hidden">
