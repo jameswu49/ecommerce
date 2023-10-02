@@ -14,17 +14,17 @@ export default function Collabs() {
 
     return (
         <section className="mb-5 md:h-[70rem] lg:w-full lg:flex lg:relative lg:max-h-[60vh]">
-            <div className="bg-[red] w-full h-[50vh] px-5 text-white flex flex-col justify-center md:h-[30vh] lg:w-[55%] lg:h-[70%] lg:absolute lg:z-10 lg:left-0 lg:pl-10">
-                <h1 className="font-bold text-xl text-center md:text-2xl lg:text-[3vw] lg:text-start">{collabData[id].title} x SUPREME</h1>
+            <div className="bg-[red] w-full py-5 px-5 text-white flex flex-col justify-center lg:w-[55%] lg:h-[70%] lg:absolute lg:z-10 lg:left-0 lg:pl-10">
+                <h1 className="font-bold text-xl text-center md:pt-16 md:text-2xl lg:text-[3vw] lg:text-start">{collabData[id].title} x SUPREME</h1>
                 <p className="text-sm pt-5 lg:pr-20 lg:leading-6 lg:text-[1.5vh]">{collabData[id].description}</p>
-                <div className="mt-5 flex justify-center md:mt-10 lg:justify-start">
+                <div className="mt-5 flex justify-center md:pb-10 lg:justify-start">
                     <button className="border-white border-[1px] px-3 font-semibold lg:px-5 lg:py-1">Learn More</button>
                 </div>
             </div>
             <div className="hidden lg:flex w-1/2 h-full items-end justify-evenly">
                 {collabData.map((data, index) => (
-                    <div key={index} className="w-28 h-28 flex justify-evenly cursor-pointer">
-                        <Image src={collabData[index].src} alt={collabData[index].alt} onClick={() => handleClick(index)} />
+                    <div key={index} className="w-[15%] h-[20%] flex justify-evenly cursor-pointer">
+                        <Image src={collabData[index].src} alt={collabData[index].alt} onClick={() => handleClick(index)} className='object-fill h-full' />
                     </div>
                 ))}
             </div>
