@@ -1,30 +1,52 @@
+import jacket from "../images/jacket.png"
+import shirt from "../images/shirt.png"
+import top from "../images/top.png"
+import sweatshirt from "../images/sweatshirt.png"
+import pants from "../images/pants.png"
+import accessories from "../images/accessories.png"
+import shoes from "../images/shoes.png"
+
 const products = [
     {
-        name: 'Jackets'
+        id: 0,
+        name: 'Jackets',
+        src: jacket
     },
 
     {
-        name: 'Shirts'
+        id: 1,
+        name: 'Shirts',
+        src: shirt
     },
 
     {
-        name: 'Tops'
+        id: 2,
+        name: 'Tops',
+        src: top
     },
 
     {
-        name: 'Sweatshirts'
+        id: 3,
+        name: 'Sweatshirts',
+        src: sweatshirt
     },
 
     {
-        name: 'Pants'
+        id: 4,
+        name: 'Pants',
+        src: pants
     },
 
     {
-        name: 'Accessories'
+        id: 5,
+        name: 'Accessories',
+        src: accessories
     },
 
     {
-        name: 'Shoes'
+        id: 6,
+        name: 'Shoes',
+        src: shoes
     },
 ]
 
