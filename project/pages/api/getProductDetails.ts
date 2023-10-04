@@ -1,5 +1,3 @@
-// pages/api/getProductDetails.ts
-
 import { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
 
@@ -10,7 +8,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         try {
             const productId = parseInt(req.query.id as string, 10);
             const category = req.query.category
-            console.log(category)
             let product;
 
             if (category === 'Jackets') {

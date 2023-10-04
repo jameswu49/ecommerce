@@ -8,43 +8,36 @@ import shoes from "../images/shoes.png"
 
 const products = [
     {
-        id: 0,
         name: 'Jackets',
         src: jacket
     },
 
     {
-        id: 1,
         name: 'Shirts',
         src: shirt
     },
 
     {
-        id: 2,
         name: 'Tops',
         src: top
     },
 
     {
-        id: 3,
         name: 'Sweatshirts',
         src: sweatshirt
     },
 
     {
-        id: 4,
         name: 'Pants',
         src: pants
     },
 
     {
-        id: 5,
         name: 'Accessories',
         src: accessories
     },
 
     {
-        id: 6,
         name: 'Shoes',
         src: shoes
     },

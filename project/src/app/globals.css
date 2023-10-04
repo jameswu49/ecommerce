@@ -10,3 +10,23 @@
     border-radius: 1rem;
     padding: 0.5rem 1rem;
 }
+
+.shop-image {
+    width: 20%;
+}
+
+
+@media screen and (min-width: 1280px) {
+    .margin {
+        margin: 0 rem;
+
+    }
+
+    .gap {
+        gap: 8rem;
+    }
+
+    .center {
+        justify-content: center;
+    }
+}
