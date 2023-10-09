@@ -53,6 +53,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             await prisma.$disconnect();
         }
     } else {
-        res.status(405).end(); // Method not allowed for non-GET requests
+        res.status(405).end();
     }
 }

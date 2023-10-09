@@ -15,6 +15,10 @@ const navbarLinks = [
         href: '/store',
         name: 'Store'
     },
+    {
+        href: '/cart',
+        name: 'Cart'
+    }
 ]
 
 export default navbarLinks

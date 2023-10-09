@@ -61,11 +61,11 @@ export default function FetchProductByName() {
                     </div>
                     <div className="lg:flex lg:flex-wrap lg:gap-x-3 lg:w-3/4 lg:ml-auto lg:my-10">
                         {product && product.map((elements, index) => (
-                            <div key={index} className="flex flex-col items-center text-center my-5 w-3/4 mx-auto cursor-pointer lg:w-1/4 lg:justify-end lg:text-center">
+                            <div key={index} className="center-products items-center text-center my-5 w-3/4 mx-auto cursor-pointer lg:w-1/4 lg:justify-end lg:text-center">
                                 <Link href={`/shop/product/${index}?category=${items[id].name}`}>
-                                    <img src={elements.image1} alt={elements.name} />
-                                    <h1>{elements.name}</h1>
-                                    <p>${elements.price}</p>
+                                    <img src={elements.image1} alt={elements.name} className="items" />
+                                    <h1 className='mt-5'>{elements.name}</h1>
+                                    <p className='grey'>${elements.price}</p>
                                 </Link>
                             </div>
                         ))}

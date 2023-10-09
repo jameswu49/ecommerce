@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    max-width: 2000px;
+    margin: 0 auto;
+}
+
 .red {
     color: #E21D15;
 }
@@ -15,11 +20,88 @@
     width: 20%;
 }
 
+.grey {
+    color: grey;
+}
+
+.center-products {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.products {
+    width: 300px;
+    height: 250px;
+}
+
+.modal {
+    position: fixed;
+    background-color: white;
+    bottom: 0%;
+    height: 43%;
+    width: 100vw;
+    z-index: 10;
+    box-shadow: 0px 0px 0px 1px black;
+}
+
+.modal-text {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 1rem;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.cart-button {
+    background-color: #E5241E;
+    padding: 0.5rem;
+    color: white;
+    width: 40%;
+}
+
+.continue-button {
+    border: 1px solid black;
+    padding: 0.5rem;
+    width: 40%;
+}
+
+.modal-image {
+    width: 40%;
+    margin: 1rem 1rem;
+}
+
+.modal-image-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 1rem;
+    font-weight: bold;
+}
+
+.modal-image-text>p {
+    margin: 1rem 0;
+}
+
+@media screen and (min-width: 768px) {
+    .modal {
+        height: fit-content;
+        width: 75%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        padding: 1rem 0;
+    }
+}
 
 @media screen and (min-width: 1280px) {
     .margin {
         margin: 0 rem;
-
     }
 
     .gap {
@@ -28,5 +110,33 @@
 
     .center {
         justify-content: center;
+    }
+
+    .products {
+        display: flex;
+        align-items: center;
+        width: auto;
+        height: auto;
+    }
+
+    .index-screen {
+        height: 80vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 75%;
+        margin: 0 auto;
+    }
+
+    .modal {
+        height: fit-content;
+        width: 50%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .modal-buttons {
+        margin: 1rem 0;
     }
 }

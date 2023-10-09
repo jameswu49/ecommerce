@@ -47,7 +47,7 @@ export function DesktopStores() {
 
 
     return (
-        <div className="hidden md:flex flex-col justify-center md:h-[70vh] lg:h-auto mb-5">
+        <div className="hidden md:flex md:flex-col md:justify-center md:h-[70vh] lg:h-[100vh] mb-5">
             <div className="w-full relative">
                 {transitions((style, id) => (
                     <animated.div style={style}>
@@ -56,7 +56,7 @@ export function DesktopStores() {
                 <div className="absolute bg-black opacity-70 w-[40%] h-full top-0 text-white">
                     <div className="ml-20 h-full flex flex-col gap-y-8 leading-8 justify-center">
                         <div>
-                            <h1 className="text-[2vh] font-bold lg:text-[4vh] lg:my-2">{data[id].name}</h1>
+                            <h1 className="text-[2vh] font-bold lg:text-2xl lg:my-2">{data[id].name}</h1>
                             <p>
                                 {data[id].address1}
                                 <br />
