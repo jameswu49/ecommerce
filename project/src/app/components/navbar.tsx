@@ -8,9 +8,13 @@ import { FiMenu } from "react-icons/fi";
 import { AiOutlineClose } from "react-icons/ai";
 import { useSidebarContext } from '../context/sidebarContext';
 
+import { signIn, signOut, useSession } from "next-auth/react"
+
 export default function Navbar() {
     const [currentTimeString, setCurrentTimeString] = useState('');
     const { handleMenuToggle, isOpen, id, handleActiveLink, setId } = useSidebarContext()
+
+    const { data: session } = useSession();
 
     const updateTime = () => {
         const currentDate = new Date();
@@ -71,7 +75,13 @@ export default function Navbar() {
                         <div className={`${index === id ? 'border-t-[red] border-2' : ''}`} />
                     </div>
                 ))}
+                {session ? (
+                    <div><button onClick={() => signOut()}>Sign Out</button></div>
+                ) : (
+                    <div><button onClick={() => signIn()}>Sign In</button></div>
+                )}
             </div>
+
         </nav>
     )
 }

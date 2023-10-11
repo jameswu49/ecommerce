@@ -17,6 +17,63 @@
   - You are about to drop the column `image_front` on the `Tops` table. All the data in the column will be lost.
 
 */
+
+CREATE TABLE "Accessories" (
+  id INT PRIMARY KEY,
+  name VARCHAR(255),
+  price INT,
+  image_back VARCHAR(255),
+  image_front VARCHAR(255)
+);
+
+CREATE TABLE "Jackets" (
+  id INT PRIMARY KEY,
+  name VARCHAR(255),
+  price INT,
+  image_back VARCHAR(255),
+  image_front VARCHAR(255)
+);
+
+CREATE TABLE "Pants" (
+  id INT PRIMARY KEY,
+  name VARCHAR(255),
+  price INT,
+  image_back VARCHAR(255),
+  image_front VARCHAR(255)
+);
+
+CREATE TABLE "Shirts" (
+  id INT PRIMARY KEY,
+  name VARCHAR(255),
+  price INT,
+  image_back VARCHAR(255),
+  image_front VARCHAR(255)
+);
+
+CREATE TABLE "Shoes" (
+  id INT PRIMARY KEY,
+  name VARCHAR(255),
+  price INT,
+  image_back VARCHAR(255),
+  image_front VARCHAR(255)
+);
+
+CREATE TABLE "Sweatshirts" (
+  id INT PRIMARY KEY,
+  name VARCHAR(255),
+  price INT,
+  image_back VARCHAR(255),
+  image_front VARCHAR(255)
+);
+
+CREATE TABLE "Tops" (
+  id INT PRIMARY KEY,
+  name VARCHAR(255),
+  price INT,
+  image_back VARCHAR(255),
+  image_front VARCHAR(255)
+);
+
 -- AlterTable
 ALTER TABLE "Accessories" DROP COLUMN "image_back",
 DROP COLUMN "image_front",

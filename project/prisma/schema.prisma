@@ -8,78 +8,103 @@ datasource db {
 }
 
 model Jackets {
-  id    Int     @id @default(autoincrement())
-  name  String
+  id          Int     @id @default(autoincrement())
+  name        String
   description String
-  price Float 
-  image1 String? @default("")
-  image2 String? @default("")
-  image3 String? @default("")
-  image4 String? @default("")
+  price       Float
+  image1      String? @default("")
+  image2      String? @default("")
+  image3      String? @default("")
+  image4      String? @default("")
 }
 
 model Shirts {
-  id    Int     @id @default(autoincrement())
-  name  String
+  id          Int     @id @default(autoincrement())
+  name        String
   description String
-  price Float 
-  image1 String? @default("")
-  image2 String? @default("")
-  image3 String? @default("")
-  image4 String? @default("")
+  price       Float
+  image1      String? @default("")
+  image2      String? @default("")
+  image3      String? @default("")
+  image4      String? @default("")
 }
 
 model Tops {
-  id    Int     @id @default(autoincrement())
-  name  String
+  id          Int     @id @default(autoincrement())
+  name        String
   description String
-  price Float 
-  image1 String? @default("")
-  image2 String? @default("")
-  image3 String? @default("")
-  image4 String? @default("")
+  price       Float
+  image1      String? @default("")
+  image2      String? @default("")
+  image3      String? @default("")
+  image4      String? @default("")
 }
 
 model Sweatshirts {
-  id    Int     @id @default(autoincrement())
-  name  String
+  id          Int     @id @default(autoincrement())
+  name        String
   description String
-  price Float 
-  image1 String? @default("")
-  image2 String? @default("")
-  image3 String? @default("")
-  image4 String? @default("")
+  price       Float
+  image1      String? @default("")
+  image2      String? @default("")
+  image3      String? @default("")
+  image4      String? @default("")
 }
 
 model Pants {
-  id    Int     @id @default(autoincrement())
-  name  String
+  id          Int     @id @default(autoincrement())
+  name        String
   description String
-  price Float 
-  image1 String? @default("")
-  image2 String? @default("")
-  image3 String? @default("")
-  image4 String? @default("")
+  price       Float
+  image1      String? @default("")
+  image2      String? @default("")
+  image3      String? @default("")
+  image4      String? @default("")
 }
 
 model Accessories {
-  id    Int     @id @default(autoincrement())
-  name  String
+  id          Int     @id @default(autoincrement())
+  name        String
   description String
-  price Float 
-  image1 String? @default("")
-  image2 String? @default("")
-  image3 String? @default("")
-  image4 String? @default("")
+  price       Float
+  image1      String? @default("")
+  image2      String? @default("")
+  image3      String? @default("")
+  image4      String? @default("")
 }
 
 model Shoes {
-  id    Int     @id @default(autoincrement())
-  name  String
+  id          Int     @id @default(autoincrement())
+  name        String
   description String
-  price Float 
-  image1 String? @default("")
-  image2 String? @default("")
-  image3 String? @default("")
-  image4 String? @default("")
+  price       Float
+  image1      String? @default("")
+  image2      String? @default("")
+  image3      String? @default("")
+  image4      String? @default("")
 }
+
+model User {
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  password String
+  carts Cart[]
+}
+
+model Cart {
+  id         Int      @id @default(autoincrement())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int
+  cartItems  CartItem[] 
+}
+
+model CartItem {
+  id            Int       @id @default(autoincrement())
+  cartId        Int
+  productName   String    
+  productPrice  Float   
+  productImage  String?   
+  quantity      Int       
+  cart          Cart      @relation(fields: [cartId], references: [id]) 
+}
+
