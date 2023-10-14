@@ -11,13 +11,17 @@ export default async function handler(
     if (req.method === 'POST') {
         const { username, password } = req.body;
 
-        console.log(username)
-
         try {
             const newUser = await prisma.user.create({
                 data: {
                     username,
                     password,
+                },
+            });
+
+            const newCart = await prisma.cart.create({
+                data: {
+                    userId: newUser.id, // Link the cart to the newly created user
                 },
             });
 

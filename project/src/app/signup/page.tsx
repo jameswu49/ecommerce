@@ -16,7 +16,6 @@ export default function SignUpForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Send a POST request to your API route for user creation
         try {
             const response = await fetch('/api/createUser', {
                 method: 'POST',

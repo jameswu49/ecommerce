@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/dist/client/components/navigation';
 import { useEffect, useState } from 'react';
 import { AiOutlineClose } from "react-icons/ai";
-import { getSession } from "next-auth"
+import { useSession } from "next-auth/react"
 
 type Product = {
     name: string,
@@ -30,6 +30,8 @@ const Page: FC<pageProps> = ({ params }) => {
 
     const search = useSearchParams();
     const category = search?.get('category')
+
+    const { data: session } = useSession();
 
     useEffect(() => {
         async function fetchProductDetails() {
@@ -58,11 +60,9 @@ const Page: FC<pageProps> = ({ params }) => {
     }
 
     const handleAddToCart = async () => {
-        // Replace with actual user authentication logic to get the user ID
-        const userId = 1; // Replace with the authenticated user's ID
 
         const data = {
-            userId: userId,
+            userId: session.user.id,
             productData: {
                 name: product?.name,
                 price: product?.price,
@@ -71,18 +71,16 @@ const Page: FC<pageProps> = ({ params }) => {
         }
 
         try {
-            // Make a POST request to your API
             const response = await fetch('/api/cart', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json', // Set the content type for JSON
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(data), // Convert the payload to JSON
+                body: JSON.stringify(data),
             });
 
             if (response.ok) {
                 const cartData = await response.json();
-                console.log(cartData)
             }
         } catch (error) {
             console.error('Error adding to cart:', error);

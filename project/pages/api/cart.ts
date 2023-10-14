@@ -8,34 +8,33 @@ export default async function handler(
     res: NextApiResponse
 ) {
     try {
-        const { userId, productData } = req.body
-        console.log(req.body)
+        const { userId, productData } = req.body;
 
         const user = await prisma.user.findUnique({
-            where: { id: 1 },
+            where: { id: userId },
+            include: {
+                cart: { include: { cartItems: true } },
+            }
         });
 
         if (user && user.cart) {
             const newItem = {
-                name: productData.name || '',
-                price: productData.price || 0,
-                image: productData.image || ''
-            }
+                productName: productData.name || '',
+                productPrice: productData.price || 0,
+                productImage: productData.image || '',
+                quantity: 1,
+            };
 
-            await prisma.cart.update({
-                where: { id: user.card.id },
-                data: { items: { push: newItem } }
-            })
-            res.json(user.cart)
-
-        } else {
-            const newCart = await prisma.cart.create({
+            const updatedCartItems = await prisma.cartItem.create({
                 data: {
-                    userId,
-                    items: [productData],
+                    ...newItem,
+                    cart: {
+                        connect: { id: user.cart.id },
+                    },
                 },
             });
-            res.json(newCart)
+
+            res.json(updatedCartItems);
         }
     } catch (error) {
         console.error('Error fetching users:', error);
@@ -43,5 +42,4 @@ export default async function handler(
     } finally {
         await prisma.$disconnect();
     }
-    res.status(405).end();
 }

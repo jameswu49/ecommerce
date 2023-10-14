@@ -7,7 +7,6 @@ import navbarLinks from '../data/links';
 import { FiMenu } from "react-icons/fi";
 import { AiOutlineClose } from "react-icons/ai";
 import { useSidebarContext } from '../context/sidebarContext';
-
 import { signIn, signOut, useSession } from "next-auth/react"
 
 export default function Navbar() {

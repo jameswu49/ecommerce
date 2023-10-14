@@ -2,11 +2,12 @@ import { PrismaClient } from '@prisma/client';
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { NextAuthOptions } from '../../../../../node_modules/next-auth/index';
 
 const prisma = new PrismaClient();
 
-const handler = NextAuth({
-    adapter: PrismaAdapter(prisma),
+export const authOptions: NextAuthOptions = {
+    // adapter: PrismaAdapter(prisma),
     providers: [
         CredentialsProvider({
             name: 'Credentials',
@@ -22,7 +23,6 @@ const handler = NextAuth({
                     });
 
                     if (existingUser) {
-                        console.log(existingUser)
                         return existingUser
                     }
                     return null;
@@ -36,10 +36,31 @@ const handler = NextAuth({
             },
         }),
     ],
-    session: {
-        strategy: "jwt"
+    callbacks: {
+        async jwt({ token, user, session }) {
+            if (user) {
+                return {
+                    ...token,
+                    id: user.id,
+                    name: user.email
+                }
+            }
+            return token
+        },
+        async session({ session, token, user }) {
+            return {
+                ...session,
+                user: {
+                    ...session.user,
+                    id: token.id,
+                }
+            }
+            return session
+        },
     },
     secret: process.env.NEXTAUTH_SECRET
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
