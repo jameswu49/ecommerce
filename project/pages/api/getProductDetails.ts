@@ -12,7 +12,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
             if (category === 'Jackets') {
                 product = await prisma.jackets.findUnique({
-                    where: { id: productId + 1 },
+                    where: { id: productId },
+                    include: {
+                        colors: {
+                            include: {
+                                images: true,
+                            },
+                        },
+                    },
                 });
             } else if (category === 'Shirts') {
                 product = await prisma.shirts.findUnique({

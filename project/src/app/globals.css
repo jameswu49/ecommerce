@@ -104,10 +104,6 @@ body {
         margin: 0 rem;
     }
 
-    .gap {
-        gap: 8rem;
-    }
-
     .center {
         justify-content: center;
     }

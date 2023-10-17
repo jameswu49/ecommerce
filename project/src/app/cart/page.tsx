@@ -88,7 +88,7 @@ export default function Cart() {
                                     </div>
                                 </div>
                                 <div className="border border-slate-200 w-[15%] flex items-center justify-center">${data.productPrice}</div>
-                                <div className="border border-slate-200 w-[10%] flex items-center justify-center cursor-pointer"><FaTrashAlt className='w-10 h-5' onClick={() => removeItem(index)} /></div>
+                                <div className="border border-slate-200 w-[10%] flex items-center justify-center"><FaTrashAlt className='w-10 h-5 cursor-pointer' onClick={() => removeItem(index)} /></div>
                             </div>
                         ))}
                     </div>

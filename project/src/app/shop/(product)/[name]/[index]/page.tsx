@@ -1,19 +1,24 @@
 'use client'
 import { FC } from 'react';
+import Image from '../../../../../../node_modules/next/image';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/dist/client/components/navigation';
 import { useEffect, useState } from 'react';
 import { AiOutlineClose } from "react-icons/ai";
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { useSession } from "next-auth/react"
+import { handleThumbnailImage, handleNextImage, handlePreviousImage, handleImageChange, total, closeModal } from "../../../../util/indexFunctions"
 
 type Product = {
     name: string,
     price: number,
     description: string,
+    mainImage: string,
     image1: string,
     image2: string,
     image3: string,
-    image4: string
+    image4: string,
+    colors: []
 }
 
 interface pageProps {
@@ -22,9 +27,12 @@ interface pageProps {
 
 const Page: FC<pageProps> = ({ params }) => {
     const [product, setProduct] = useState<Product | null>(null);
-    const [image, setImage] = useState(product?.image1)
+    const [image, setImage] = useState('')
     const [modal, setModal] = useState(false)
     const [cartItems, setCartItems] = useState([])
+    const [imageUrls, setImageUrls] = useState([])
+    const [arrayIndex, setArrayIndex] = useState(0)
+    const [activeIndex, setActiveIndex] = useState(0)
 
     const router = useRouter()
 
@@ -40,7 +48,15 @@ const Page: FC<pageProps> = ({ params }) => {
                 if (response.ok) {
                     const productData = await response.json();
                     setProduct(productData);
-                    setImage(productData.image1)
+                    setImage(productData.mainImage)
+                    const imageArray = productData.colors[0].images[0]
+                    const imageUrls = [
+                        imageArray.image1,
+                        imageArray.image2,
+                        imageArray.image3,
+                        imageArray.image4
+                    ].filter(url => url !== null && url !== "");
+                    setImageUrls(imageUrls)
                 } else {
                     console.error('Error fetching product details:', response.status, response.statusText);
                 }
@@ -53,11 +69,6 @@ const Page: FC<pageProps> = ({ params }) => {
             fetchProductDetails();
         }
     }, [params.index, category]);
-
-
-    const handleImageChange = (src: string) => {
-        setImage(src)
-    }
 
     const handleAddToCart = async () => {
 
@@ -81,23 +92,12 @@ const Page: FC<pageProps> = ({ params }) => {
 
             if (response.ok) {
                 const cartData = await response.json();
+                setCartItems(cartData)
+                setModal(!modal)
             }
         } catch (error) {
             console.error('Error adding to cart:', error);
         }
-    }
-
-    const total = () => {
-        let price = 0;
-        cartItems.map((elements) => (
-            price += elements.price
-        ))
-        return price
-    }
-
-    const closeModal = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        setModal(!modal)
     }
 
     return (
@@ -108,7 +108,7 @@ const Page: FC<pageProps> = ({ params }) => {
                         <div>
                             <p className='text-xl font-semibold'>Added to cart.</p>
                         </div>
-                        <div className='flex flex-col items-center cursor-pointer' onClick={closeModal}>
+                        <div className='flex flex-col items-center cursor-pointer' onClick={() => closeModal(modal, setModal)}>
                             <span><AiOutlineClose className='text-xl' /></span>
                             <span>Close</span>
                         </div>
@@ -119,33 +119,49 @@ const Page: FC<pageProps> = ({ params }) => {
                             <img src={image} alt="" />
                         </div>
                         <div className='modal-image-text'>
-                            <h1>{cartItems?.[cartItems.length - 1]?.name}</h1>
-                            <p>${cartItems?.[cartItems.length - 1]?.price}</p>
+                            <h1>{cartItems.productName}</h1>
+                            <p>${cartItems.productPrice}</p>
                         </div>
                     </div>
                     <hr className='bg-black' />
                     <div className='modal-text font-bold'>
-                        Subtotal: {cartItems.length} item(s) ${total()}
+                        Subtotal: {cartItems.length} item(s) ${total(cartItems)}
                     </div>
                     <div className='modal-buttons'>
                         <button className='cart-button' onClick={() => router.push('/cart')}>VIEW CART</button>
-                        <button className='continue-button' onClick={closeModal}>CONTINUE SHOPPING</button>
+                        <button className='continue-button' onClick={() => closeModal(modal, setModal)}>CONTINUE SHOPPING</button>
                     </div>
                 </div>
             </div>
             {product && (
-                <section className='flex flex-col items-center index-screen'>
+                <section className='flex flex-col items-center justify-center lg:h-screen'>
                     <div className='flex flex-col my-5'>
                         <h1 className='font-bold text-center lg:hidden'>{product.name}</h1>
                     </div>
-                    <div className='lg:flex lg:w-3/4 gap'>
-                        <div className='w-3/4 mx-auto flex flex-col items-center justify-center lg:w-1/2'>
-                            <img src={image ? image : product.image1} alt={`Picture of ${product.name}`} className='products' />
-                            <div className='flex justify-evenly my-5 lg:hidden'>
-                                <img src={product.image1} className='shop-image cursor-pointer' onClick={() => handleImageChange(product.image1)} />
-                                {product.image2 && <img src={product.image2} className='shop-image cursor-pointer' onClick={() => handleImageChange(product.image2)} alt={`Picture of ${product.name}`} />}
-                                {product.image3 && <img src={product.image3} className='shop-image cursor-pointer' onClick={() => handleImageChange(product.image3)} alt={`Picture of ${product.name}`} />}
-                                {product.image4 && <img src={product.image4} className='shop-image cursor-pointer' onClick={() => handleImageChange(product.image4)} alt={`Picture of ${product.name}`} />}
+                    <div className='lg:flex'>
+                        <div className="lg:flex lg:flex-col lg:w-1/2 lg:items-center">
+                            <div className='w-3/4 mx-auto flex flex-col items-center justify-center lg:w-1/2'>
+                                <div className='relative flex justify-center'>
+                                    <BsChevronLeft className="absolute left-0 top-[50%] bg-[red] text-white h-10 w-5 cursor-pointer" onClick={() => handlePreviousImage(arrayIndex, setImage, setArrayIndex, setActiveIndex, imageUrls)} />
+                                    <Image src={image} alt={`Picture of ${product.name}`} width={500} height={500} className='md:w-3/4 lg:w-full' />
+                                    <BsChevronRight className="absolute top-[50%] right-0 bg-[red] text-white h-10 w-5 cursor-pointer" onClick={() => handleNextImage(arrayIndex, imageUrls, setArrayIndex, setImage, setActiveIndex)} />
+                                </div>
+                                <div className='flex justify-evenly my-5 lg:hidden'>
+                                    <div className='flex justify-evenly my-2 gap-x-5'>
+                                        {product?.colors.map((colors, index) => (
+                                            <div key={index}>
+                                                <Image src={colors.colorImage} alt="" width={500} height={500} className='cursor-pointer rounded-full h-12 w-12' onClick={() => handleImageChange(colors.colorImage, index, setImage, product, setImageUrls, setArrayIndex, setActiveIndex)} />
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='hidden lg:flex gap-x-4'>
+                                {imageUrls.map((images, index) => (
+                                    <div key={index} className='h-16 w-16 mt-10' >
+                                        <Image src={images} height={500} width={500} className={`cursor-pointer p-1 ${activeIndex === index ? 'border-2 border-[red]' : ''}`} onClick={() => handleThumbnailImage(images, index, setActiveIndex, setArrayIndex, setImage)} />
+                                    </div>
+                                ))}
                             </div>
                         </div>
                         <div className='flex flex-col lg:w-1/2 center'>
@@ -156,11 +172,12 @@ const Page: FC<pageProps> = ({ params }) => {
                                 <hr />
                             </div>
                             <div className='hidden lg:flex lg:flex-col lg:w-1/2 lg:mx-auto'>
-                                <div className='flex justify-evenly my-2'>
-                                    <img src={product.image1} className='shop-image cursor-pointer' onClick={() => handleImageChange(product.image1)} />
-                                    {product.image2 && <img src={product.image2} className='shop-image cursor-pointer' onClick={() => handleImageChange(product.image2)} alt={`Picture of ${product.name}`} />}
-                                    {product.image3 && <img src={product.image3} className='shop-image cursor-pointer' onClick={() => handleImageChange(product.image3)} alt={`Picture of ${product.name}`} />}
-                                    {product.image4 && <img src={product.image4} className='shop-image cursor-pointer' onClick={() => handleImageChange(product.image4)} alt={`Picture of ${product.name}`} />}
+                                <div className='flex justify-evenly my-2 gap-x-5'>
+                                    {product?.colors.map((colors, index) => (
+                                        <div key={index}>
+                                            <Image src={colors.colorImage} alt="" width={500} height={500} className='cursor-pointer' onClick={() => handleImageChange(colors.colorImage, index, setImage, product, setImageUrls, setArrayIndex, setActiveIndex)} />
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                             <div className='flex flex-col items-center my-5'>
@@ -170,7 +187,8 @@ const Page: FC<pageProps> = ({ params }) => {
                         </div>
                     </div>
                 </section>
-            )}
+            )
+            }
         </>
     );
 }

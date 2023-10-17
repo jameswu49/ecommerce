@@ -12,11 +12,29 @@ model Jackets {
   name        String
   description String
   price       Float
+  mainImage   String? @default("")
+  colors      JacketColors[]
+}
+
+model JacketColors {
+  id          Int     @id @default(autoincrement())
+  color       String
+  colorImage  String
+  images      JacketImages[]
+  jacket      Jackets @relation(fields: [jacketId], references: [id])
+  jacketId    Int
+}
+
+model JacketImages {
+  id          Int     @id @default(autoincrement())
   image1      String? @default("")
   image2      String? @default("")
   image3      String? @default("")
   image4      String? @default("")
+  jacket      JacketColors @relation(fields: [colorId], references: [id])
+  colorId     Int
 }
+
 
 model Shirts {
   id          Int     @id @default(autoincrement())
