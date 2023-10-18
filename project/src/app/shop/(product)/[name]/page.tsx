@@ -48,7 +48,7 @@ const Page: FC<pageProps> = ({ params }) => {
                     <div className="w-[20%] text-end mr-10 mt-5">
                         <h1 className="font-bold uppercase">New Releases</h1>
                         {items.map((elements, index) => (
-                            <div key={index} className='text-sm leading-8 cursor-pointer'>
+                            <div key={index} className='text-sm leading-8'>
                                 <Link href={`/shop/${encodeURIComponent(elements.name)}?id=${index}`}>
                                     {elements.name}
                                 </Link>
@@ -60,10 +60,10 @@ const Page: FC<pageProps> = ({ params }) => {
                     </div>
                 </div>
                 <div className="lg:flex lg:flex-wrap lg:gap-x-3 lg:w-3/4 lg:ml-auto lg:my-10">
-                    {product && product.map((elements, index) => (
-                        <div div key={index} className="center-products items-center text-center my-5 w-3/4 mx-auto cursor-pointer lg:w-1/4 lg:justify-end lg:text-center" >
+                    {product && product.map((elements: any, index: number) => (
+                        <div key={index} className="center-products items-center text-center my-5 w-3/4 mx-auto cursor-pointer lg:w-1/4 lg:justify-end lg:text-center" >
                             <Link href={`/shop/${items[id]?.name}/${index}?category=${items[id]?.name}`}>
-                                <img src={elements.mainImage} alt={elements.name} className="items" />
+                                <Image src={elements.mainImage} alt={elements.name} className="items" />
                                 <h1 className='mt-5'>{elements.name}</h1>
                                 <p className='grey'>${elements.price}</p>
                             </Link>

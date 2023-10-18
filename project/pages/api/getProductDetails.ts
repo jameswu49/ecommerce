@@ -44,15 +44,27 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 });
             } else if (category === 'Pants') {
                 product = await prisma.pants.findUnique({
-                    where: { id: productId + 1 },
+                    where: { id: productId },
+                    include: {
+                        colors: true,
+                        images: true
+                    },
                 });
             } else if (category === 'Accessories') {
                 product = await prisma.accessories.findUnique({
-                    where: { id: productId + 1 },
+                    where: { id: productId },
+                    include: {
+                        colors: true,
+                        images: true
+                    },
                 });
             } else if (category === 'Shoes') {
                 product = await prisma.shoes.findUnique({
-                    where: { id: productId + 1 },
+                    where: { id: productId },
+                    include: {
+                        colors: true,
+                        images: true
+                    },
                 });
             }
 
