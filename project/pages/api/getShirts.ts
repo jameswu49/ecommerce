@@ -12,8 +12,8 @@ export default async function handler(
             const data = await prisma.shirts.findMany();
             res.status(200).json(data);
         } catch (error) {
-            console.error('Error fetching users:', error);
-            res.status(500).json({ error: 'Unable to fetch users' });
+            console.error('Error fetching jackets:', error);
+            res.status(500).json({ error: 'Unable to fetch jackets' });
         } finally {
             await prisma.$disconnect();
         }

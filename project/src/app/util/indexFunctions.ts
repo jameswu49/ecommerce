@@ -14,11 +14,9 @@ type Product = {
 export const handleThumbnailImage = (
     image: string,
     index: number,
-    setActiveIndex: React.Dispatch<React.SetStateAction<number>>,
     setArrayIndex: React.Dispatch<React.SetStateAction<number>>,
     setImage: React.Dispatch<React.SetStateAction<string>>
 ) => {
-    setActiveIndex(index);
     setArrayIndex(index);
     setImage(image);
 };
@@ -28,18 +26,15 @@ export const handleNextImage = (
     imageUrls: string[],
     setArrayIndex: React.Dispatch<React.SetStateAction<number>>,
     setImage: React.Dispatch<React.SetStateAction<string>>,
-    setActiveIndex: React.Dispatch<React.SetStateAction<number>>
 ) => {
     if (arrayIndex < imageUrls.length - 1) {
         setArrayIndex((prevArrayIndex) => {
             setImage(imageUrls[prevArrayIndex + 1]);
-            setActiveIndex(prevArrayIndex + 1);
             return prevArrayIndex + 1;
         });
     } else {
         setArrayIndex(0);
         setImage(imageUrls[0]);
-        setActiveIndex(0);
     }
 };
 
@@ -47,17 +42,14 @@ export const handlePreviousImage = (
     arrayIndex: number,
     setImage: React.Dispatch<React.SetStateAction<string>>,
     setArrayIndex: React.Dispatch<React.SetStateAction<number>>,
-    setActiveIndex: React.Dispatch<React.SetStateAction<number>>,
     imageUrls: string[]
 ) => {
     if (arrayIndex === 0) {
         setImage(imageUrls[imageUrls.length - 1]);
         setArrayIndex(imageUrls.length - 1);
-        setActiveIndex(imageUrls.length - 1);
     } else {
         setArrayIndex((prevArrayIndex) => {
             setImage(imageUrls[prevArrayIndex - 1]);
-            setActiveIndex(prevArrayIndex - 1);
             return prevArrayIndex - 1;
         });
     }
@@ -70,23 +62,24 @@ export const handleImageChange = (
     product: Product | null,
     setImageUrls: React.Dispatch<React.SetStateAction<string[]>>,
     setArrayIndex: React.Dispatch<React.SetStateAction<number>>,
-    setActiveIndex: React.Dispatch<React.SetStateAction<number>>
+    setColorIndex: React.Dispatch<React.SetStateAction<number>>
 ) => {
     setImage(src);
-    const imageArray = product?.colors[index].images[0];
+
+    const imageArray = product?.images[index];
     const updatedImageUrls = [
-        imageArray.image1,
-        imageArray.image2,
-        imageArray.image3,
-        imageArray.image4
+        imageArray?.image1,
+        imageArray?.image2,
+        imageArray?.image3,
+        imageArray?.image4
     ].filter((url) => url !== null && url !== "");
 
     setImageUrls(updatedImageUrls);
     setArrayIndex(0);
-    setActiveIndex(0);
+    setColorIndex(index)
 };
 
-export const total = (cartItems: CartItem) => {
+export const total = (cartItems: any) => {
     let price = 0;
     price += cartItems.productPrice;
     return price;

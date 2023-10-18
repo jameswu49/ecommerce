@@ -13,38 +13,18 @@ model Jackets {
   description String
   price       Float
   mainImage   String? @default("")
-  colors      JacketColors[]
+  colors      Color[]
+  images      Image[]
 }
-
-model JacketColors {
-  id          Int     @id @default(autoincrement())
-  color       String
-  colorImage  String
-  images      JacketImages[]
-  jacket      Jackets @relation(fields: [jacketId], references: [id])
-  jacketId    Int
-}
-
-model JacketImages {
-  id          Int     @id @default(autoincrement())
-  image1      String? @default("")
-  image2      String? @default("")
-  image3      String? @default("")
-  image4      String? @default("")
-  jacket      JacketColors @relation(fields: [colorId], references: [id])
-  colorId     Int
-}
-
 
 model Shirts {
   id          Int     @id @default(autoincrement())
   name        String
   description String
   price       Float
-  image1      String? @default("")
-  image2      String? @default("")
-  image3      String? @default("")
-  image4      String? @default("")
+  mainImage   String? @default("")
+  colors      Color[]
+  images      Image[]
 }
 
 model Tops {
@@ -52,21 +32,19 @@ model Tops {
   name        String
   description String
   price       Float
-  image1      String? @default("")
-  image2      String? @default("")
-  image3      String? @default("")
-  image4      String? @default("")
+  mainImage   String? @default("")
+  colors      Color[]
+  images      Image[]
 }
 
-model Sweatshirts {
+model SweatShirts {
   id          Int     @id @default(autoincrement())
   name        String
   description String
   price       Float
-  image1      String? @default("")
-  image2      String? @default("")
-  image3      String? @default("")
-  image4      String? @default("")
+  mainImage   String? @default("")
+  colors      Color[]
+  images      Image[]
 }
 
 model Pants {
@@ -74,10 +52,9 @@ model Pants {
   name        String
   description String
   price       Float
-  image1      String? @default("")
-  image2      String? @default("")
-  image3      String? @default("")
-  image4      String? @default("")
+  mainImage   String? @default("")
+  colors      Color[]
+  images      Image[]
 }
 
 model Accessories {
@@ -85,10 +62,9 @@ model Accessories {
   name        String
   description String
   price       Float
-  image1      String? @default("")
-  image2      String? @default("")
-  image3      String? @default("")
-  image4      String? @default("")
+  mainImage   String? @default("")
+  colors      Color[]
+  images      Image[]
 }
 
 model Shoes {
@@ -96,33 +72,73 @@ model Shoes {
   name        String
   description String
   price       Float
-  image1      String? @default("")
-  image2      String? @default("")
-  image3      String? @default("")
-  image4      String? @default("")
+  mainImage   String? @default("")
+  colors      Color[]
+  images      Image[]
+}
+
+model Color {
+  id            Int          @id @default(autoincrement())
+  color         String
+  colorImage    String
+  jacket        Jackets?     @relation(fields: [jacketId], references: [id])
+  jacketId      Int?
+  shirt         Shirts?      @relation(fields: [shirtId], references: [id])
+  shirtId       Int?
+  tops          Tops?        @relation(fields: [topsId], references: [id])
+  topsId        Int?
+  sweatshirts   SweatShirts? @relation(fields: [sweatshirtsId], references: [id])
+  sweatshirtsId Int?
+  pants         Pants?       @relation(fields: [pantsId], references: [id])
+  pantsId       Int?
+  accessories   Accessories? @relation(fields: [accessoriesId], references: [id])
+  accessoriesId Int?
+  shoes         Shoes?       @relation(fields: [shoesId], references: [id])
+  shoesId       Int?
+}
+
+model Image {
+  id            Int          @id @default(autoincrement())
+  image1        String?      @default("")
+  image2        String?      @default("")
+  image3        String?      @default("")
+  image4        String?      @default("")
+  jacket        Jackets?     @relation(fields: [jacketId], references: [id])
+  jacketId      Int?
+  shirt         Shirts?      @relation(fields: [shirtId], references: [id])
+  shirtId       Int?
+  tops          Tops?        @relation(fields: [topsId], references: [id])
+  topsId        Int?
+  SweatShirts   SweatShirts? @relation(fields: [sweatShirtsId], references: [id])
+  sweatShirtsId Int?
+  Pants         Pants?       @relation(fields: [pantsId], references: [id])
+  pantsId       Int?
+  Accessories   Accessories? @relation(fields: [accessoriesId], references: [id])
+  accessoriesId Int?
+  Shoes         Shoes?       @relation(fields: [shoesId], references: [id])
+  shoesId       Int?
 }
 
 model User {
   id       Int    @id @default(autoincrement())
   username String @unique
   password String
-  cart Cart?
+  cart     Cart?
 }
 
 model Cart {
-  id         Int      @id @default(autoincrement())
-  user       User     @relation(fields: [userId], references: [id])
-  userId     Int @unique
-  cartItems  CartItem[] 
+  id        Int        @id @default(autoincrement())
+  user      User       @relation(fields: [userId], references: [id])
+  userId    Int        @unique
+  cartItems CartItem[]
 }
 
 model CartItem {
-  id            Int       @id @default(autoincrement())
-  cartId        Int
-  productName   String    
-  productPrice  Float   
-  productImage  String?   
-  quantity      Int       
-  cart          Cart      @relation(fields: [cartId], references: [id]) 
+  id           Int     @id @default(autoincrement())
+  cartId       Int
+  productName  String
+  productPrice Float
+  productImage String?
+  quantity     Int
+  cart         Cart    @relation(fields: [cartId], references: [id])
 }
-

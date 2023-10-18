@@ -10,9 +10,8 @@ export default async function handler(
     try {
         const { userId } = req.query;
 
-        // Fetch the user based on userId from your database
         const user = await prisma.user.findUnique({
-            where: { id: parseInt(userId as string) }, // Parse userId as an integer
+            where: { id: parseInt(userId as string) }, 
             include: {
                 cart: {
                     include: {
@@ -23,7 +22,6 @@ export default async function handler(
         });
 
         if (user && user.cart) {
-            // Extract cart items from the user's cart
             const cartItems = user.cart.cartItems;
 
             res.json(cartItems);

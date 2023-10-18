@@ -104,10 +104,6 @@ body {
         margin: 0 rem;
     }
 
-    .center {
-        justify-content: center;
-    }
-
     .products {
         display: flex;
         align-items: center;

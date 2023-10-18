@@ -14,24 +14,33 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 product = await prisma.jackets.findUnique({
                     where: { id: productId },
                     include: {
-                        colors: {
-                            include: {
-                                images: true,
-                            },
-                        },
+                        colors: true,
+                        images: true
                     },
                 });
             } else if (category === 'Shirts') {
                 product = await prisma.shirts.findUnique({
-                    where: { id: productId + 1 },
+                    where: { id: productId },
+                    include: {
+                        colors: true,
+                        images: true
+                    },
                 });
             } else if (category === 'Tops') {
                 product = await prisma.tops.findUnique({
-                    where: { id: productId + 1 },
+                    where: { id: productId },
+                    include: {
+                        colors: true,
+                        images: true
+                    },
                 });
             } else if (category === 'Sweatshirts') {
-                product = await prisma.sweatshirts.findUnique({
-                    where: { id: productId + 1 },
+                product = await prisma.sweatShirts.findUnique({
+                    where: { id: productId },
+                    include: {
+                        colors: true,
+                        images: true
+                    },
                 });
             } else if (category === 'Pants') {
                 product = await prisma.pants.findUnique({

@@ -21,11 +21,10 @@ export default async function handler(
 
             const newCart = await prisma.cart.create({
                 data: {
-                    userId: newUser.id, // Link the cart to the newly created user
+                    userId: newUser.id,
                 },
             });
 
-            console.log('User created:', newUser);
             res.status(200).json({ success: true });
         } catch (error) {
             console.error('Error creating user:', error);
