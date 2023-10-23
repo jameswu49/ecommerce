@@ -79,11 +79,13 @@ export const handleImageChange = (
     setColorIndex(index)
 };
 
-export const total = (cartItems: any) => {
+export const total = (items: any) => {
     let price = 0;
-    price += cartItems.productPrice;
-    return price;
-};
+    items.map((elements: any) => (
+        price += elements.productPrice * elements.quantity
+    ))
+    return price
+}
 
 export const closeModal = (
     modal: boolean,

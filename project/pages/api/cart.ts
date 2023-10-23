@@ -18,23 +18,37 @@ export default async function handler(
         });
 
         if (user && user.cart) {
-            const newItem = {
-                productName: productData.name || '',
-                productPrice: productData.price || 0,
-                productImage: productData.image || '',
-                quantity: 1,
-            };
+            const productImage = productData.image
+            const existingItem = user.cart.cartItems.find(item => productImage === item.productImage)
 
-            const updatedCartItems = await prisma.cartItem.create({
-                data: {
-                    ...newItem,
-                    cart: {
-                        connect: { id: user.cart.id },
+            if (existingItem) {
+                const updatedQuantity = existingItem.quantity + 1
+
+                const updatedCartItem = await prisma.cartItem.update({
+                    where: { id: existingItem.id },
+                    data: { quantity: updatedQuantity },
+                });
+                res.json(updatedCartItem);
+
+            } else {
+                const newItem = {
+                    productName: productData.name || '',
+                    productPrice: productData.price || 0,
+                    productImage: productData.image || '',
+                    quantity: productData.quantity || 1,
+                    cart: { connect: { id: user.cart.id } },
+                };
+
+                const createdCartItem = await prisma.cartItem.create({
+                    data: {
+                        ...newItem,
+                        cart: {
+                            connect: { id: user.cart.id },
+                        },
                     },
-                },
-            });
-
-            res.json(updatedCartItems);
+                });
+                res.json(createdCartItem);
+            }
         }
     } catch (error) {
         console.error('Error fetching users:', error);

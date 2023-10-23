@@ -11,11 +11,15 @@ export default async function handler(
         const { userId } = req.query;
 
         const user = await prisma.user.findUnique({
-            where: { id: parseInt(userId as string) }, 
+            where: { id: parseInt(userId as string) },
             include: {
                 cart: {
                     include: {
-                        cartItems: true,
+                        cartItems: {
+                            orderBy: {
+                                id: 'asc'
+                            }
+                        },
                     },
                 },
             },

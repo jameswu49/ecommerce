@@ -3,12 +3,13 @@ import { FC } from 'react';
 import Image from '../../../../../../node_modules/next/image';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/dist/client/components/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { useSession } from "next-auth/react"
 import { useFetchProductDetails, handleAddToCart } from "../../../../util/indexApi"
 import { handleThumbnailImage, handleNextImage, handlePreviousImage, handleImageChange } from "../../../../util/indexFunctions"
 import Modal from "../../../../components/modal"
+import { Oval } from 'react-loading-icons'
 
 interface pageProps {
     params: { index: number }
@@ -22,6 +23,8 @@ const Page: FC<pageProps> = ({ params }) => {
     const [imageUrls, setImageUrls] = useState([])
     const [arrayIndex, setArrayIndex] = useState(0)
     const [colorIndex, setColorIndex] = useState(0)
+    const [isAddingToCart, setIsAddingToCart] = useState(false)
+    const [quantity, setQuantity] = useState<number>(0)
 
     const router = useRouter()
 
@@ -33,6 +36,10 @@ const Page: FC<pageProps> = ({ params }) => {
     // useEffect to fetch all details about the product 
     useFetchProductDetails(params.index, category, setProduct, setImage, setImageUrls);
 
+    const updateQuantity = (event) => {
+        setQuantity(parseInt(event.target.value, 10));
+    }
+    
     return (
         <>
             <Modal modal={modal} setModal={setModal} cartItems={cartItems} router={router} image={imageUrls[0]} />
@@ -48,11 +55,12 @@ const Page: FC<pageProps> = ({ params }) => {
                                     <BsChevronLeft className="absolute left-0 top-[50%] bg-[red] text-white h-10 w-5 cursor-pointer" onClick={() => handlePreviousImage(arrayIndex, setImage, setArrayIndex, imageUrls)} />
                                     <Image src={image} alt={`Picture of ${product.name}`} width={500} height={500} className='md:w-3/4 lg:w-[1000px]' />
                                     <BsChevronRight className="absolute top-[50%] right-0 bg-[red] text-white h-10 w-5 cursor-pointer" onClick={() => handleNextImage(arrayIndex, imageUrls, setArrayIndex, setImage)} />
+                                    <div className='absolute bg-[red] text-white bottom-0 px-2'>{arrayIndex + 1} / {imageUrls.length}</div>
                                 </div>
                                 <div className='flex justify-evenly my-5 lg:hidden'>
                                     <div className='flex justify-evenly my-2 gap-x-5'>
                                         {product?.colors.map((colors: any, index: number) => (
-                                            <div key={index}>
+                                            <div key={index} >
                                                 <Image src={colors.colorImage} alt="" width={500} height={500} className='cursor-pointer h-12 w-12' onClick={() => handleImageChange(colors.colorImage, index, setImage, product, setImageUrls, setArrayIndex, setColorIndex)} />
                                             </div>
                                         ))}
@@ -61,7 +69,7 @@ const Page: FC<pageProps> = ({ params }) => {
                             </div>
                             <div className='hidden lg:flex gap-x-4'>
                                 {imageUrls.map((images, index) => (
-                                    <div key={index} className='h-16 w-16 mt-10' >
+                                    <div key={index} className='h-16 w-16 mt-10 flex items-center' >
                                         <Image src={images} height={500} width={500} className={`cursor-pointer p-1 ${arrayIndex === index ? 'border-2 border-[red]' : ''}`} onClick={() => handleThumbnailImage(images, index, setArrayIndex, setImage)} />
                                     </div>
                                 ))}
@@ -88,7 +96,17 @@ const Page: FC<pageProps> = ({ params }) => {
                             </div>
                             <div className='flex flex-col items-center my-5'>
                                 <p className='font-bold pb-2'>${product.price}</p>
-                                <button className='bg-[red] text-white button' onClick={() => handleAddToCart(session, product, image, setCartItems, setModal, modal)}>Add to Bag</button>
+                                <div>
+                                    <select onChange={(e) => updateQuantity(e)}>
+                                        {Array.from({ length: 10 }, (_, index) => (
+                                            <option key={index} value={index + 1}>
+                                                {index + 1}
+                                            </option>
+                                        )
+                                        )}
+                                    </select>
+                                    <button className='bg-[red] text-white button' onClick={() => handleAddToCart(session, product, imageUrls[0], setCartItems, setModal, modal, setIsAddingToCart, quantity)}>{isAddingToCart ? <Oval /> : 'Add to Bag'}</button>
+                                </div>
                             </div>
                         </div>
                     </div>

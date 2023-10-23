@@ -40,18 +40,22 @@ export const useFetchProductDetails = (
 export const handleAddToCart = async (
     session: any,
     product: any,
-    image: string,
+    imageUrls: number[],
     setCartItems: Function,
     setModal: Function,
-    modal: boolean
+    modal: boolean,
+    setIsAddingToCart: Function,
+    quantity: number
 ) => {
+    setIsAddingToCart(true)
 
     const data = {
         userId: session.user.id,
         productData: {
             name: product?.name,
             price: product?.price,
-            image: image
+            image: imageUrls,
+            quantity: quantity
         }
     }
 
@@ -68,7 +72,7 @@ export const handleAddToCart = async (
             const cartData = await response.json();
             setCartItems(cartData)
             setModal(!modal)
-            console.log('hi')
+            setIsAddingToCart(false)
         }
     } catch (error) {
         console.error('Error adding to cart:', error);

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import shop from "../../../images/shop.png"
 import items from "../../../data/products"
+import { Oval } from 'react-loading-icons'
 
 interface pageProps {
     params: { name: string }
@@ -13,11 +14,13 @@ interface pageProps {
 
 const Page: FC<pageProps> = ({ params }) => {
     const [product, setProduct] = useState(null);
+    const [isLoading, setIsLoading] = useState(false)
 
     const search = useSearchParams();
     const id = search.get('id')
 
     useEffect(() => {
+        setIsLoading(true)
         async function fetchname() {
             try {
                 const response = await fetch(`/api/get${params.name}`, {
@@ -27,6 +30,7 @@ const Page: FC<pageProps> = ({ params }) => {
                 if (response.ok) {
                     const product = await response.json();
                     setProduct(product);
+                    setIsLoading(false)
                 } else {
                     console.error('Error fetching products:', response.status, response.statusText);
                 }
@@ -60,15 +64,23 @@ const Page: FC<pageProps> = ({ params }) => {
                     </div>
                 </div>
                 <div className="lg:flex lg:flex-wrap lg:gap-x-3 lg:w-3/4 lg:ml-auto lg:my-10">
-                    {product && product.map((elements: any, index: number) => (
-                        <div key={index} className="center-products items-center text-center my-5 w-3/4 mx-auto cursor-pointer lg:w-1/4 lg:justify-end lg:text-center" >
-                            <Link href={`/shop/${items[id]?.name}/${index}?category=${items[id]?.name}`}>
-                                <Image src={elements.mainImage} alt={elements.name} className="items" />
-                                <h1 className='mt-5'>{elements.name}</h1>
-                                <p className='grey'>${elements.price}</p>
-                            </Link>
+                    {isLoading ? (
+                        <div className='h-screen flex items-center mx-auto lg:h-[20vh]'>
+                            <Oval className='h-10 w-10 mx-auto' stroke="grey" />
                         </div>
-                    ))}
+                    ) : (
+                        <>
+                            {product?.map((elements: any, index: number) => (
+                                <div key={index} className="center-products items-center text-center my-5 w-3/4 mx-auto cursor-pointer lg:w-1/4 lg:justify-end lg:text-center" >
+                                    <Link href={`/shop/${items[id]?.name}/${index}?category=${items[id]?.name}`}>
+                                        <Image src={elements.mainImage} alt={elements.name} width={500} height={500} className="items" />
+                                        <h1 className='mt-5'>{elements.name}</h1>
+                                        <p className='grey'>${elements.price}</p>
+                                    </Link>
+                                </div>
+                            ))}
+                        </>
+                    )}
                 </div>
             </section>
         </>

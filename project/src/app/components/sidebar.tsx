@@ -4,9 +4,13 @@ import { FaTimes } from 'react-icons/fa';
 import links from "../data/links"
 import { useSidebarContext } from "../context/sidebarContext";
 import { useSpring, animated } from '@react-spring/web';
+import { signIn, signOut, useSession } from "next-auth/react"
+
 
 export default function Sidebar() {
     const { handleMenuToggle, handleActiveLink, isOpen, id } = useSidebarContext()
+
+    const { data: session } = useSession();
 
     const menuAnimation = useSpring({
         transform: isOpen ? 'translateY(0%)' : 'translateY(-100%)',
@@ -26,6 +30,11 @@ export default function Sidebar() {
                             </>
                         </Link>
                     ))}
+                    {session ? (
+                        <div><button onClick={() => signOut()}>Sign Out</button></div>
+                    ) : (
+                        <div><button onClick={() => signIn()}>Sign In</button></div>
+                    )}
                 </div>
             </div>
         </animated.div>
