@@ -39,7 +39,7 @@ const Page: FC<pageProps> = ({ params }) => {
     const updateQuantity = (event) => {
         setQuantity(parseInt(event.target.value, 10));
     }
-    
+
     return (
         <>
             <Modal modal={modal} setModal={setModal} cartItems={cartItems} router={router} image={imageUrls[0]} />
@@ -94,17 +94,20 @@ const Page: FC<pageProps> = ({ params }) => {
                                     ))}
                                 </div>
                             </div>
-                            <div className='flex flex-col items-center my-5'>
-                                <p className='font-bold pb-2'>${product.price}</p>
-                                <div>
-                                    <select onChange={(e) => updateQuantity(e)}>
-                                        {Array.from({ length: 10 }, (_, index) => (
-                                            <option key={index} value={index + 1}>
-                                                {index + 1}
-                                            </option>
-                                        )
-                                        )}
-                                    </select>
+                            <div className='flex flex-col items-center mb-5 lg:my-5'>
+                                <p className='font-bold pb-2 text-lg'>${product.price}</p>
+                                <div className='flex justify-between w-3/4 mt-5 md:w-1/2 lg:w-[40%]'>
+                                    <div>
+                                        <p>Quantity</p>
+                                        <select onChange={(e) => updateQuantity(e)}>
+                                            {Array.from({ length: 10 }, (_, index) => (
+                                                <option key={index} value={index + 1}>
+                                                    {index + 1}
+                                                </option>
+                                            )
+                                            )}
+                                        </select>
+                                    </div>
                                     <button className='bg-[red] text-white button' onClick={() => handleAddToCart(session, product, imageUrls[0], setCartItems, setModal, modal, setIsAddingToCart, quantity)}>{isAddingToCart ? <Oval /> : 'Add to Bag'}</button>
                                 </div>
                             </div>
