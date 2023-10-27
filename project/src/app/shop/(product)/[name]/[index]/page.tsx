@@ -20,11 +20,11 @@ const Page: FC<pageProps> = ({ params }) => {
     const [image, setImage] = useState('')
     const [modal, setModal] = useState(false)
     const [cartItems, setCartItems] = useState([])
-    const [imageUrls, setImageUrls] = useState([])
-    const [arrayIndex, setArrayIndex] = useState(0)
-    const [colorIndex, setColorIndex] = useState(0)
-    const [isAddingToCart, setIsAddingToCart] = useState(false)
-    const [quantity, setQuantity] = useState<number>(0)
+    const [imageUrls, setImageUrls] = useState<string[]>([])
+    const [arrayIndex, setArrayIndex] = useState<number>(0)
+    const [colorIndex, setColorIndex] = useState<number>(0)
+    const [isAddingToCart, setIsAddingToCart] = useState<boolean>(false)
+    const [quantity, setQuantity] = useState<number>(1)
 
     const router = useRouter()
 
@@ -40,9 +40,38 @@ const Page: FC<pageProps> = ({ params }) => {
         setQuantity(parseInt(event.target.value, 10));
     }
 
+    const addToLocalStorage = (product, image, quantity) => {
+        setIsAddingToCart(true)
+        const cartItem = {
+            product,
+            image,
+            quantity,
+        };
+
+        const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        const existingCartItem = existingCart.find((item) => item.image === image);
+
+        if (existingCartItem) {
+            existingCartItem.quantity += quantity;
+            setCartItems(cartItem)
+        } else {
+            existingCart.push(cartItem);
+            setCartItems(cartItem)
+        }
+
+        setTimeout(() => {
+            setIsAddingToCart(false)
+            setModal(true)
+        }, 2000)
+
+        localStorage.setItem('cart', JSON.stringify(existingCart));
+    }
+
+
     return (
         <>
-            <Modal modal={modal} setModal={setModal} cartItems={cartItems} router={router} image={imageUrls[0]} />
+            <Modal modal={modal} setModal={setModal} cartItems={cartItems} router={router} image={imageUrls[0]} setCartItems={setCartItems} />
             {product && (
                 <section className='flex flex-col items-center justify-center lg:h-screen'>
                     <div className='flex flex-col my-5'>
@@ -70,7 +99,7 @@ const Page: FC<pageProps> = ({ params }) => {
                             <div className='hidden lg:flex gap-x-4'>
                                 {imageUrls.map((images, index) => (
                                     <div key={index} className='h-16 w-16 mt-10 flex items-center' >
-                                        <Image src={images} height={500} width={500} className={`cursor-pointer p-1 ${arrayIndex === index ? 'border-2 border-[red]' : ''}`} onClick={() => handleThumbnailImage(images, index, setArrayIndex, setImage)} />
+                                        <Image src={images} height={500} width={500} alt={''} className={`cursor-pointer p-1 ${arrayIndex === index ? 'border-2 border-[red]' : ''}`} onClick={() => handleThumbnailImage(images, index, setArrayIndex, setImage)} />
                                     </div>
                                 ))}
                             </div>
@@ -108,7 +137,18 @@ const Page: FC<pageProps> = ({ params }) => {
                                             )}
                                         </select>
                                     </div>
-                                    <button className='bg-[red] text-white button' onClick={() => handleAddToCart(session, product, imageUrls[0], setCartItems, setModal, modal, setIsAddingToCart, quantity)}>{isAddingToCart ? <Oval /> : 'Add to Bag'}</button>
+                                    <button
+                                        className='bg-[red] text-white button'
+                                        onClick={() => {
+                                            if (session) {
+                                                handleAddToCart(session, product, imageUrls[0], setCartItems, setModal, modal, setIsAddingToCart, quantity);
+                                            } else {
+                                                addToLocalStorage(product, imageUrls[0], quantity);
+                                            }
+                                        }}
+                                    >
+                                        {isAddingToCart ? 'Adding to Cart...' : 'Add to Bag'}
+                                    </button>
                                 </div>
                             </div>
                         </div>

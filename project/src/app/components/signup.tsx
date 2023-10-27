@@ -39,7 +39,7 @@ export default function SignUpForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="h-screen">
             <div>
                 <label>
                     Username:

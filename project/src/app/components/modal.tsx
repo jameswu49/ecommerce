@@ -8,21 +8,46 @@ import { Oval } from 'react-loading-icons'
 import { useSession } from "next-auth/react"
 
 export default function Modal({ modal, setModal, cartItems, router, image }) {
-    const [items, setItems] = useState([])
-    const [isLoading, setIsLoading] = useState(true);
+    const [items, setItems] = useState<(number | string)[]>([])
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [quantity, setQuantity] = useState<number>(0)
+
+    const [counter, setCounter] = useState(0)
 
     const { data: session } = useSession();
 
     useEffect(() => {
         if (!session) {
-            return
+            const cartItems = localStorage.getItem('cart')
+            const parsedCartItems = JSON.parse(cartItems);
+
+            if (parsedCartItems) {
+                setItems(parsedCartItems)
+                console.log(items)
+                subTotal();
+            }
         } else {
-            setIsLoading(true)
-            fetchProducts(session, setItems).then(() => {
-                setIsLoading(false);
-            });
+            fetchProducts(session)
+                .then((fetchedItems) => {
+                    setItems(fetchedItems)
+                    console.log(items)
+                    subTotal();
+                })
+                .catch((error) => {
+                    console.error('Error fetching products:', error);
+                });
         }
+        setIsLoading(false);
+
     }, [session, setItems]);
+
+    const subTotal = () => {
+        let quantity = 0;
+        items.map((elements) => (
+            quantity += elements.quantity
+        ))
+        return quantity
+    }
 
     return (
         <>
@@ -48,13 +73,13 @@ export default function Modal({ modal, setModal, cartItems, router, image }) {
                                 <Image src={image} height={500} width={500} alt="" />
                             </div>
                             <div className='modal-image-text'>
-                                <h1>{cartItems.productName}</h1>
-                                <p>${cartItems.productPrice}</p>
+                                <h1>{session ? cartItems.productName : cartItems.product?.name}</h1>
+                                <p>${session ? cartItems.productPrice : cartItems.product?.price}</p>
                             </div>
                         </div>
                         <hr className='bg-black' />
                         <div className='modal-text font-bold'>
-                            Subtotal: {items.length + 1} item(s) ${total(items)}
+                            Subtotal: {subTotal()} item(s) ${total(items, session)}
                         </div>
                         <div className='modal-buttons'>
                             <button className='cart-button' onClick={() => router.push('/cart')}>VIEW CART</button>

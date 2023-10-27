@@ -38,31 +38,36 @@ export default function SignUpForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>
-                    Username:
-                    <input
-                        type="text"
-                        name="username"
-                        value={formData.username}
-                        onChange={handleChange}
-                    />
-                </label>
-            </div>
-            <div>
-                <label>
-                    Password:
-                    <input
-                        type="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                    />
-                </label>
-            </div>
-            <div>
-                <button type="submit">Sign Up</button>
+        <form onSubmit={handleSubmit} className="h-screen flex flex-col items-center justify-center">
+            <h1 className="font-bold text-xl my-4">Create An Account</h1>
+            <div className="h-3/4">
+                <div className="h-64 rounded-md w-80 border flex flex-col gap-y-5 justify-center pl-5">
+
+                    <label className="flex flex-col">
+                        Username:
+                        <input
+                            type="text"
+                            name="username"
+                            value={formData.username}
+                            onChange={handleChange}
+                            className="border border-black w-3/4"
+                        />
+                    </label>
+
+                    <label className="flex flex-col">
+                        Password:
+                        <input
+                            type="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            className="border border-black w-3/4"
+                        />
+                    </label>
+                    <div>
+                        <button type="submit" className="border p-2 bg-[red] text-white">Sign Up</button>
+                    </div>
+                </div>
             </div>
         </form>
     );

@@ -79,11 +79,17 @@ export const handleImageChange = (
     setColorIndex(index)
 };
 
-export const total = (items: any) => {
+export const total = (items: any, session: any) => {
     let price = 0;
-    items.map((elements: any) => (
-        price += elements.productPrice * elements.quantity
-    ))
+    if (session) {
+        items.forEach((elements: any) => {
+            price += elements.productPrice * elements.quantity
+        })
+    } else {
+        items.forEach((elements: any) => {
+            price += elements.product?.price * elements.quantity
+        })
+    }
     return price
 }
 

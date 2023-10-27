@@ -1,6 +1,6 @@
 // Set's the products quantity in cart
 
-export const handleQuantity = async (event, index, items, session, itemsInCart) => {
+export const handleQuantity = async (event, index, items, session) => {
     const selectedValue = event.target.value;
 
     const data = {
@@ -20,8 +20,6 @@ export const handleQuantity = async (event, index, items, session, itemsInCart) 
 
         if (response.ok) {
             const cartData = await response.json();
-            console.log('cartdata', cartData)
-            itemsInCart()
         }
     } catch (error) {
         console.error('Error adding to cart:', error);

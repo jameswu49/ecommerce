@@ -1,4 +1,4 @@
-export const fetchProducts = async (session, setItems) => {
+export const fetchProducts = async (session) => {
     try {
         const response = await fetch(`/api/getCartProducts?userId=${session.user.id}`, {
             method: 'GET',
@@ -6,7 +6,7 @@ export const fetchProducts = async (session, setItems) => {
 
         if (response.ok) {
             const product = await response.json();
-            setItems(product);
+            return product
         } else {
             console.error('Error fetching products:', response.status, response.statusText);
         }
