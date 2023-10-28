@@ -61,6 +61,7 @@ export default function Cart() {
                         console.error('Error adding to cart:', error);
                     }
                 };
+
                 handleUpdateCart();
                 localStorage.removeItem('cart');
             }
@@ -68,7 +69,7 @@ export default function Cart() {
                 setItems(fetchedProducts)
             })
         }
-    }, [session]);
+    }, [session, items]);
 
     const handleModal = (index: number) => {
         setShowModal(!showModal)
@@ -83,85 +84,6 @@ export default function Cart() {
         return total
     }
 
-    // useEffect(() => {
-    //     const cartItems = localStorage.getItem('cart');
-    //     const parsedCartItems = JSON.parse(cartItems);
-
-    //     if (session && parsedCartItems && parsedCartItems.length > 0) {
-    //         const data = {
-    //             userId: session.user.id,
-    //             productData: parsedCartItems.map(existingItem => ({
-    //                 name: existingItem.product?.name,
-    //                 price: existingItem.product?.price,
-    //                 image: existingItem.image,
-    //                 quantity: existingItem.quantity,
-    //             })),
-    //         };
-
-    //         const handleUpdateCart = async () => {
-    //             try {
-    //                 const response = await fetch('/api/updateCart', {
-    //                     method: 'POST',
-    //                     headers: {
-    //                         'Content-Type': 'application/json',
-    //                     },
-    //                     body: JSON.stringify(data),
-    //                 });
-
-    //                 if (response.ok) {
-    //                     localStorage.removeItem('cart');
-    //                     // setItems([]);
-    //                 }
-    //             } catch (error) {
-    //                 console.error('Error adding to cart:', error);
-    //             }
-    //         };
-    //         console.log('ran')
-    //         console.log(items)
-    //         handleUpdateCart();
-    //     }
-    // }, [session, items]);
-
-    // const handleCheckOut = () => {
-    //     if (session) {
-    //         const existingItems = JSON.parse(localStorage.getItem('cart'))
-    //         console.log(existingItems)
-
-    //         const handleUpdateCart = async () => {
-
-    //             const data = {
-    //                 userId: session.user.id,
-    //                 productData: existingItems.map((existingItem: any) => ({
-    //                     name: existingItem.product?.name,
-    //                     price: existingItem.product?.price,
-    //                     image: existingItem.image,
-    //                     quantity: existingItem.quantity,
-    //                 })),
-    //             }
-
-    //             try {
-    //                 const response = await fetch('/api/updateCart', {
-    //                     method: 'POST',
-    //                     headers: {
-    //                         'Content-Type': 'application/json',
-    //                     },
-    //                     body: JSON.stringify(data),
-    //                 });
-
-    //                 if (response.ok) {
-    //                     const cartData = await response.json();
-    //                     console.log('success')
-    //                 }
-    //             } catch (error) {
-    //                 console.error('Error adding to cart:', error);
-    //             }
-    //         }
-    //         handleUpdateCart()
-    //     } else {
-    //         setCheckOutModal(true)
-    //     }
-    // }
-
     const handleLogIn = () => {
         router.push('/api/auth/signin')
     }
@@ -172,7 +94,7 @@ export default function Cart() {
 
 
     return (
-        <section className='min-h-[90vh]'>
+        <section className='min-h-[80vh]'>
             {items?.length === 0 ? (
                 <div className='flex h-[50vh] items-center justify-center font-bold text-xl'>
                     <h1>Cart is empty.</h1>
@@ -202,7 +124,7 @@ export default function Cart() {
                             </div>}
                     </div>}
 
-                    <div className='min-h-[70vh]'>
+                    <div className='min-h-[70vh] mb-5'>
                         {items?.map((data: any, index: number) => (
                             <div key={index} className="flex h-fit">
                                 <div className="w-3/4 flex gap-x-6 border border-slate-200 pl-3 py-5">
@@ -234,12 +156,12 @@ export default function Cart() {
                     {items?.length > 0 &&
                         <>
                             <div className='flex justify-center lg:hidden'>
-                                <button className='bg-[red] text-white py-1 px-2 mt-5'>Checkout</button>
+                                <button className='bg-[red] text-white py-1 px-2'>Checkout</button>
                             </div>
-                            <div className='flex justify-around items-center h-20'>
+                            <div className='flex justify-around items-center h-16 lg:h-20'>
                                 <span>{itemsInCart()} item(s) in your cart.</span>
                                 <div className='hidden lg:block'>
-                                    <button className='bg-[red] text-white py-1 px-2 mt-5'>Checkout</button>
+                                    <button className='bg-[red] text-white py-1 px-2'>Checkout</button>
                                 </div>
                                 <span>subtotal: <span className='font-bold'>${total(items, session)}</span></span>
                             </div>

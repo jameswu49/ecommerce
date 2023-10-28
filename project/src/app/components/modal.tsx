@@ -57,7 +57,7 @@ export default function Modal({ modal, setModal, cartItems, router, image }) {
                 </div>
             ) : (
                 <div className={`${!modal ? 'hidden' : ''}`}>
-                    <div className='modal'>
+                    <div className='modal w-[90%]'>
                         <div className='modal-text'>
                             <div>
                                 <p className='text-xl font-semibold'>Added to cart.</p>
@@ -82,8 +82,8 @@ export default function Modal({ modal, setModal, cartItems, router, image }) {
                             Subtotal: {subTotal()} item(s) ${total(items, session)}
                         </div>
                         <div className='modal-buttons'>
-                            <button className='cart-button' onClick={() => router.push('/cart')}>VIEW CART</button>
-                            <button className='continue-button' onClick={() => closeModal(modal, setModal)}>CONTINUE SHOPPING</button>
+                            <button className='cart-button my-5 text-sm' onClick={() => router.push('/cart')}>VIEW CART</button>
+                            <button className='continue-button my-5 text-sm' onClick={() => closeModal(modal, setModal)}>CONTINUE SHOPPING</button>
                         </div>
                     </div>
                 </div>
