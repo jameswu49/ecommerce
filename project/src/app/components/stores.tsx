@@ -49,7 +49,7 @@ export function DesktopStores() {
     return (
         <div className="hidden md:flex md:flex-col md:justify-center md:h-[70vh] lg:h-[100vh] mb-5">
             <div className="w-full relative">
-                {transitions((style, id) => (
+                {transitions((style, id: number) => (
                     <animated.div style={style}>
                         <Image src={data[id].src} alt={'store'} className="w-full h-[35rem] lg:h-[80vh]" />
                     </animated.div>))}

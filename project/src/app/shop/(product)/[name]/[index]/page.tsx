@@ -7,9 +7,8 @@ import { useState } from 'react';
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { useSession } from "next-auth/react"
 import { useFetchProductDetails, handleAddToCart } from "../../../../util/indexApi"
-import { handleThumbnailImage, handleNextImage, handlePreviousImage, handleImageChange } from "../../../../util/indexFunctions"
+import { handleThumbnailImage, handleNextImage, handlePreviousImage, handleImageChange, updateQuantity, addToLocalStorage } from "../../../../util/indexFunctions"
 import Modal from "../../../../components/modal"
-import { Oval } from 'react-loading-icons'
 
 interface pageProps {
     params: { index: number }
@@ -20,7 +19,7 @@ const Page: FC<pageProps> = ({ params }) => {
     const [image, setImage] = useState('')
     const [modal, setModal] = useState(false)
     const [cartItems, setCartItems] = useState([])
-    const [imageUrls, setImageUrls] = useState<string[]>([])
+    const [imageUrls, setImageUrls] = useState<any[]>([])
     const [arrayIndex, setArrayIndex] = useState<number>(0)
     const [colorIndex, setColorIndex] = useState<number>(0)
     const [isAddingToCart, setIsAddingToCart] = useState<boolean>(false)
@@ -35,39 +34,6 @@ const Page: FC<pageProps> = ({ params }) => {
 
     // useEffect to fetch all details about the product 
     useFetchProductDetails(params.index, category, setProduct, setImage, setImageUrls);
-
-    const updateQuantity = (event) => {
-        setQuantity(parseInt(event.target.value, 10));
-    }
-
-    const addToLocalStorage = (product, image, quantity) => {
-        setIsAddingToCart(true)
-        const cartItem = {
-            product,
-            image,
-            quantity,
-        };
-
-        const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        const existingCartItem = existingCart.find((item) => item.image === image);
-
-        if (existingCartItem) {
-            existingCartItem.quantity += quantity;
-            setCartItems(cartItem)
-        } else {
-            existingCart.push(cartItem);
-            setCartItems(cartItem)
-        }
-
-        setTimeout(() => {
-            setIsAddingToCart(false)
-            setModal(true)
-        }, 2000)
-
-        localStorage.setItem('cart', JSON.stringify(existingCart));
-    }
-
 
     return (
         <>
@@ -128,7 +94,7 @@ const Page: FC<pageProps> = ({ params }) => {
                                 <div className='flex justify-between w-3/4 mt-5 md:w-1/2 lg:w-[40%]'>
                                     <div>
                                         <p>Quantity</p>
-                                        <select onChange={(e) => updateQuantity(e)}>
+                                        <select onChange={(e) => updateQuantity(e, setQuantity)}>
                                             {Array.from({ length: 10 }, (_, index) => (
                                                 <option key={index} value={index + 1}>
                                                     {index + 1}
@@ -141,9 +107,9 @@ const Page: FC<pageProps> = ({ params }) => {
                                         className='bg-[red] text-white button'
                                         onClick={() => {
                                             if (session) {
-                                                handleAddToCart(session, product, imageUrls[0], setCartItems, setModal, modal, setIsAddingToCart, quantity);
+                                                handleAddToCart(session, product, imageUrls[0], setCartItems, setModal, modal, setIsAddingToCart, quantity, cartItems);
                                             } else {
-                                                addToLocalStorage(product, imageUrls[0], quantity);
+                                                addToLocalStorage(product, imageUrls[0], quantity, setIsAddingToCart, setCartItems, setModal);
                                             }
                                         }}
                                     >

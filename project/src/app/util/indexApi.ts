@@ -45,7 +45,8 @@ export const handleAddToCart = async (
     setModal: Function,
     modal: boolean,
     setIsAddingToCart: Function,
-    quantity: number
+    quantity: number,
+    cartItems: any
 ) => {
     setIsAddingToCart(true)
 
@@ -70,9 +71,11 @@ export const handleAddToCart = async (
 
         if (response.ok) {
             const cartData = await response.json();
+            console.log('cartItems', cartItems)
             setCartItems(cartData)
             setModal(!modal)
             setIsAddingToCart(false)
+            console.log('cartData', cartData)
         }
     } catch (error) {
         console.error('Error adding to cart:', error);

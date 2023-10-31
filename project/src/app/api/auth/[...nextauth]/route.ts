@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client';
-import { PrismaAdapter } from "@auth/prisma-adapter"
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { NextAuthOptions } from '../../../../../node_modules/next-auth/index';
@@ -7,7 +6,6 @@ import { NextAuthOptions } from '../../../../../node_modules/next-auth/index';
 const prisma = new PrismaClient();
 
 export const authOptions: NextAuthOptions = {
-    // adapter: PrismaAdapter(prisma),
     providers: [
         CredentialsProvider({
             name: 'Credentials',

@@ -1,8 +1,6 @@
 'use client'
 import { useState } from "react"
 import Image from "../../../node_modules/next/image"
-import shoes from "../images/shoes-collab.png"
-import shirt from "../images/shirt-collab.jpeg"
 import collabData from "../data/collabData"
 
 export default function Collabs() {

@@ -1,37 +1,38 @@
 import { useEffect, useState } from "react";
 import Image from "../../../node_modules/next/image";
 import { AiOutlineClose } from "react-icons/ai";
-import { closeModal, total } from "../util/indexFunctions"
-import { fetchProducts } from "../util/cartApi";
+import { closeModal } from "../util/indexFunctions"
+import { fetchProducts } from "../cart/util/cartApi";
 import { Oval } from 'react-loading-icons'
 
 import { useSession } from "next-auth/react"
 
-export default function Modal({ modal, setModal, cartItems, router, image }) {
-    const [items, setItems] = useState<(number | string)[]>([])
+interface ModalProps {
+    modal: boolean;
+    setModal: React.Dispatch<React.SetStateAction<boolean>>;
+    cartItems: any;
+    router: any;
+    image: string;
+}
+
+export default function Modal({ modal, setModal, cartItems, router, image }: ModalProps) {
+    const [items, setItems] = useState([])
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [quantity, setQuantity] = useState<number>(0)
 
-    const [counter, setCounter] = useState(0)
-
-    const { data: session } = useSession();
+    const { data: session, status } = useSession();
 
     useEffect(() => {
-        if (!session) {
+        if (status !== 'authenticated') {
             const cartItems = localStorage.getItem('cart')
             const parsedCartItems = JSON.parse(cartItems);
 
             if (parsedCartItems) {
                 setItems(parsedCartItems)
-                console.log(items)
-                subTotal();
             }
         } else {
             fetchProducts(session)
                 .then((fetchedItems) => {
                     setItems(fetchedItems)
-                    console.log(items)
-                    subTotal();
                 })
                 .catch((error) => {
                     console.error('Error fetching products:', error);
@@ -39,15 +40,7 @@ export default function Modal({ modal, setModal, cartItems, router, image }) {
         }
         setIsLoading(false);
 
-    }, [session, setItems]);
-
-    const subTotal = () => {
-        let quantity = 0;
-        items.map((elements) => (
-            quantity += elements.quantity
-        ))
-        return quantity
-    }
+    }, [session, setItems, status]);
 
     return (
         <>
@@ -68,22 +61,19 @@ export default function Modal({ modal, setModal, cartItems, router, image }) {
                             </div>
                         </div>
                         <hr className='bg-black' />
-                        <div className='flex'>
+                        <div className='flex justify-evenly'>
                             <div className='modal-image'>
                                 <Image src={image} height={500} width={500} alt="" />
                             </div>
-                            <div className='modal-image-text'>
+                            <div className='flex flex-col justify-center'>
                                 <h1>{session ? cartItems.productName : cartItems.product?.name}</h1>
-                                <p>${session ? cartItems.productPrice : cartItems.product?.price}</p>
+                                <p className="font-semibold">${session ? cartItems.productPrice : cartItems.product?.price}</p>
                             </div>
                         </div>
                         <hr className='bg-black' />
-                        <div className='modal-text font-bold'>
-                            Subtotal: {subTotal()} item(s) ${total(items, session)}
-                        </div>
                         <div className='modal-buttons'>
-                            <button className='cart-button my-5 text-sm' onClick={() => router.push('/cart')}>VIEW CART</button>
-                            <button className='continue-button my-5 text-sm' onClick={() => closeModal(modal, setModal)}>CONTINUE SHOPPING</button>
+                            <button className='cart-button py-2 text-sm' onClick={() => router.push('/cart')}>VIEW CART</button>
+                            <button className='continue-button py-2 text-sm' onClick={() => closeModal(modal, setModal)}>CONTINUE SHOPPING</button>
                         </div>
                     </div>
                 </div>

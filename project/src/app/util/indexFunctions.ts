@@ -1,16 +1,3 @@
-type Product = {
-    name: string,
-    price: number,
-    description: string,
-    mainImage: string,
-    image1: string,
-    image2: string,
-    image3: string,
-    image4: string,
-    colors: [],
-    images: string[]
-}
-
 export const handleThumbnailImage = (
     image: string,
     index: number,
@@ -59,7 +46,7 @@ export const handleImageChange = (
     src: string,
     index: number,
     setImage: React.Dispatch<React.SetStateAction<string>>,
-    product: Product | null,
+    product: any,
     setImageUrls: React.Dispatch<React.SetStateAction<string[]>>,
     setArrayIndex: React.Dispatch<React.SetStateAction<number>>,
     setColorIndex: React.Dispatch<React.SetStateAction<number>>
@@ -100,3 +87,45 @@ export const closeModal = (
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setModal(!modal);
 };
+
+export const updateQuantity = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    setQuantity: React.Dispatch<React.SetStateAction<number>>
+) => {
+    setQuantity(parseInt(event.target.value, 10));
+}
+
+export const addToLocalStorage = (
+    product: any,
+    image: string,
+    quantity: number,
+    setIsAddingToCart: React.Dispatch<React.SetStateAction<boolean>>,
+    setCartItems: React.Dispatch<React.SetStateAction<any>>,
+    setModal: React.Dispatch<React.SetStateAction<boolean>>
+) => {
+    setIsAddingToCart(true)
+    const cartItem = {
+        product,
+        image,
+        quantity,
+    };
+
+    const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const existingCartItem = existingCart.find((item: any) => item.image === image);
+
+    if (existingCartItem) {
+        existingCartItem.quantity += quantity;
+        setCartItems(cartItem)
+    } else {
+        existingCart.push(cartItem);
+        setCartItems(cartItem)
+    }
+
+    setTimeout(() => {
+        setIsAddingToCart(false)
+        setModal(true)
+    }, 2000)
+
+    localStorage.setItem('cart', JSON.stringify(existingCart));
+}
