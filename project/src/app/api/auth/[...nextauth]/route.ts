@@ -5,7 +5,7 @@ import { NextAuthOptions } from '../../../../../node_modules/next-auth/index';
 
 const prisma = new PrismaClient();
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
     providers: [
         CredentialsProvider({
             name: 'Credentials',
