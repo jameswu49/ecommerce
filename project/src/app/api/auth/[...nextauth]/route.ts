@@ -1,63 +1,62 @@
-// import { PrismaClient } from '@prisma/client';
-import NextAuth from "next-auth";
-// import CredentialsProvider from "next-auth/providers/credentials";
-import { authOptions } from './authOptions';
+import { PrismaClient } from '@prisma/client';
+import NextAuth, { NextAuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 
-// const prisma = new PrismaClient();
+const prisma = new PrismaClient();
 
-// const authOptions: NextAuthOptions = {
-//     providers: [
-//         CredentialsProvider({
-//             name: 'Credentials',
-//             credentials: {
-//                 username: { label: 'Username', type: 'text', placeholder: 'Username' },
-//                 password: { label: 'Password', type: 'password' },
-//             },
-//             async authorize(credentials) {
-//                 try {
-//                     // Find the user by username
-//                     const existingUser = await prisma.user.findUnique({
-//                         where: { username: credentials.username },
-//                     });
+const authOptions: NextAuthOptions = {
+    providers: [
+        CredentialsProvider({
+            name: 'Credentials',
+            credentials: {
+                username: { label: 'Username', type: 'text', placeholder: 'Username' },
+                password: { label: 'Password', type: 'password' },
+            },
+            async authorize(credentials) {
+                try {
+                    // Find the user by username
+                    const existingUser = await prisma.user.findUnique({
+                        where: { username: credentials.username },
+                    });
 
-//                     if (existingUser) {
-//                         return existingUser
-//                     }
-//                     return null;
+                    if (existingUser) {
+                        return existingUser
+                    }
+                    return null;
 
-//                 } catch (error) {
-//                     console.error("Error during authorization:", error);
-//                     throw new Error("Authentication failed");
-//                 } finally {
-//                     await prisma.$disconnect();
-//                 }
-//             },
-//         }),
-//     ],
-//     callbacks: {
-//         async jwt({ token, user, session }) {
-//             if (user) {
-//                 return {
-//                     ...token,
-//                     id: user.id,
-//                     name: user.email
-//                 }
-//             }
-//             return token
-//         },
-//         async session({ session, token, user }) {
-//             return {
-//                 ...session,
-//                 user: {
-//                     ...session.user,
-//                     id: token.id,
-//                 }
-//             }
-//             return session
-//         },
-//     },
-//     secret: process.env.NEXTAUTH_SECRET,
-// };
+                } catch (error) {
+                    console.error("Error during authorization:", error);
+                    throw new Error("Authentication failed");
+                } finally {
+                    await prisma.$disconnect();
+                }
+            },
+        }),
+    ],
+    callbacks: {
+        async jwt({ token, user, session }) {
+            if (user) {
+                return {
+                    ...token,
+                    id: user.id,
+                    name: user.email
+                }
+            }
+            return token
+        },
+        async session({ session, token, user }) {
+            return {
+                ...session,
+                user: {
+                    ...session.user,
+                    id: token.id,
+                }
+            }
+            return session
+        },
+    },
+    secret: process.env.NEXTAUTH_SECRET,
+};
 
 const handler = NextAuth(authOptions);
 

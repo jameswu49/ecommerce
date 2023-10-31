@@ -12,7 +12,7 @@ export const FetchCartItems = (session, status, setItems) => useEffect(() => {
         const cartItems = localStorage.getItem('cart');
         const parsedCartItems = JSON.parse(cartItems);
 
-        if (status !== 'authenticated' && parsedCartItems && parsedCartItems.length > 0) {
+        if (status === 'authenticated' && parsedCartItems && parsedCartItems.length > 0) {
             const data = {
                 userId: session.user.id,
                 productData: parsedCartItems.map(existingItem => ({
@@ -49,7 +49,6 @@ export const FetchCartItems = (session, status, setItems) => useEffect(() => {
         fetchProducts(session).then((fetchedProducts) => {
             setItems(fetchedProducts)
         })
-
     }
 }, [session, setItems, status]);
 
