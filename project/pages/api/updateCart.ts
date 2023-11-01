@@ -41,7 +41,7 @@ export default async function handler(
             });
 
             const newItem = productData.filter((element: any) => {
-                return !user.cart.cartItems.some((item: Item) => element.image === item.productImage);
+                return !user.cart?.cartItems?.some((item: Item) => element.image === item.productImage);
             });
 
             if (existingItem) {
