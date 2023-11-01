@@ -72,7 +72,6 @@ export default async function handler(
                             cart: { connect: { id: user.cart?.id } },
                         },
                     });
-                    console.log(createdCartItem)
                     return createdCartItem;
                 }));
 

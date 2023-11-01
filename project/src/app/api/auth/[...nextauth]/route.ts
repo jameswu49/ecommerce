@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth, { NextAuthOptions, Session, Token } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 const prisma = new PrismaClient();
@@ -12,11 +12,10 @@ const authOptions: NextAuthOptions = {
                 username: { label: 'Username', type: 'text', placeholder: 'Username' },
                 password: { label: 'Password', type: 'password' },
             },
-            async authorize(credentials) {
+            async authorize(credentials: { username: string, password: string }) {
                 try {
-                    // Find the user by username
                     const existingUser = await prisma.user.findUnique({
-                        where: { username: credentials.username },
+                        where: { username: credentials.username, password: credentials.password },
                     });
 
                     if (existingUser) {
@@ -34,17 +33,17 @@ const authOptions: NextAuthOptions = {
         }),
     ],
     callbacks: {
-        async jwt({ token, user, session }) {
+        async jwt({ token, user }: { token: Token; user: { id: number, username: string, password: string }; }) {
             if (user) {
                 return {
                     ...token,
                     id: user.id,
-                    name: user.email
+                    name: user.username
                 }
             }
             return token
         },
-        async session({ session, token, user }) {
+        async session({ session, token }: { session: Session; token: Token }) {
             return {
                 ...session,
                 user: {
@@ -52,7 +51,6 @@ const authOptions: NextAuthOptions = {
                     id: token.id,
                 }
             }
-            return session
         },
     },
     secret: process.env.NEXTAUTH_SECRET,
