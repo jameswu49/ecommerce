@@ -13,7 +13,6 @@ type Item = {
 }
 
 type Element = {
-    id: number,
     name: string,
     price: number,
     image: string,
