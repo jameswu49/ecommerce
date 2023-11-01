@@ -8,7 +8,7 @@ type Item = {
     cartId: number,
     productName: string,
     productPrice: number
-    productImage: string,
+    productImage: string | null,
     quantity: number
 }
 
