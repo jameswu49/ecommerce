@@ -45,14 +45,14 @@ export default async function handler(
             });
 
             if (existingItem) {
-                const updatedQuantity = existingItem.map((element: Item) => {
-                    return element.quantity
+                const updatedQuantity = existingItem.map((item: Item) => {
+                    return item.quantity
                 })
 
-                const updatedCartItems = await Promise.all(existingItem.map(async (element: Element, index: number) => {
+                const updatedCartItems = await Promise.all(existingItem.map(async (item: Item, index: number) => {
                     const updatedCartItem = await prisma.cartItem.update({
-                        where: { id: element.id },
-                        data: { quantity: element.quantity + updatedQuantity[index] },
+                        where: { id: item.id },
+                        data: { quantity: item.quantity + updatedQuantity[index] },
                     });
                     return updatedCartItem;
                 }));
@@ -72,6 +72,7 @@ export default async function handler(
                             cart: { connect: { id: user.cart.id } },
                         },
                     });
+                    console.log(createdCartItem)
                     return createdCartItem;
                 }));
 
