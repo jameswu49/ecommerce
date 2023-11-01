@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import NextAuth, { NextAuthOptions, Session, Token } from "next-auth";
+import NextAuth, { NextAuthOptions, Session } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 const prisma = new PrismaClient();
@@ -33,7 +33,7 @@ const authOptions: NextAuthOptions = {
         }),
     ],
     callbacks: {
-        async jwt({ token, user }: { token: Token; user: { id: number, username: string, password: string }; }) {
+        async jwt({ token, user }: { token: any; user: { id: number, username: string, password: string }; }) {
             if (user) {
                 return {
                     ...token,
@@ -43,7 +43,7 @@ const authOptions: NextAuthOptions = {
             }
             return token
         },
-        async session({ session, token }: { session: Session; token: Token }) {
+        async session({ session, token }: { session: Session; token: any }) {
             return {
                 ...session,
                 user: {
