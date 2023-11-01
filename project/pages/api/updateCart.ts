@@ -13,6 +13,7 @@ type Item = {
 }
 
 type Element = {
+    id: number,
     name: string,
     price: number,
     image: string,
@@ -39,7 +40,7 @@ export default async function handler(
                 return productData.some((element: Element) => element.image === item.productImage);
             });
 
-            const newItem = productData.filter((element: Element) => {
+            const newItem = productData.filter((element: any) => {
                 return !user.cart.cartItems.some((item: Item) => element.image === item.productImage);
             });
 
