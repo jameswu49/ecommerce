@@ -9,7 +9,7 @@ export default async function handler(
 ) {
     try {
         const { userId, productData } = req.body;
-        
+
         const user = await prisma.user.findUnique({
             where: { id: userId },
             include: {
@@ -19,7 +19,7 @@ export default async function handler(
 
         if (user && user.cart) {
             const productImage = productData.image
-            const existingItem = user.cart.cartItems.find(item => productImage === item.productImage)
+            const existingItem = user.cart.cartItems.find((item: any) => productImage === item.productImage)
 
             if (existingItem) {
                 const updatedQuantity = existingItem.quantity + productData.quantity

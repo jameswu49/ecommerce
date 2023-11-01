@@ -1,5 +1,16 @@
+import React from "react";
+import { Session } from 'next-auth';
+import { useRouter } from "next/navigation";
+
 // Set's the products quantity in cart
-export const handleQuantity = async (event, index, items, session, setItems, itemsInCart) => {
+export const handleQuantity = async (
+    event: React.ChangeEvent<HTMLSelectElement>,
+    index: number,
+    items: any[],
+    session: Session,
+    setItems: React.Dispatch<React.SetStateAction<any[]>>,
+    itemsInCart: (items: Array<{ quantity: number }>) => number
+) => {
     const selectedValue = event.target.value;
 
     if (session) {
@@ -39,13 +50,13 @@ export const handleQuantity = async (event, index, items, session, setItems, ite
 }
 
 // Show modal 
-export const handleModal = (index: number, setShowModal, setProductIndex) => {
+export const handleModal = (index: number, setShowModal: React.Dispatch<React.SetStateAction<boolean>>, setProductIndex: React.Dispatch<React.SetStateAction<number>>,) => {
     setShowModal(true)
     setProductIndex(index)
 }
 
 // Close Modal
-export const handleCloseModal = (setShowModal) => {
+export const handleCloseModal = (setShowModal: React.Dispatch<React.SetStateAction<boolean>>,) => {
     setShowModal(false)
 }
 
@@ -59,11 +70,14 @@ export const itemsInCart = (items: Array<{ quantity: number }>) => {
 }
 
 // Redirect to login page if not logged in 
-export const handleLogIn = (router) => {
+export const handleLogIn = (router: typeof useRouter) => {
     router.push('/api/auth/signin')
 }
 
 // Show Checkout modal if user isn't logged in 
-export const handleCheckOutModal = (setCheckOutModal, checkOutModal) => {
-    setCheckOutModal(!checkOutModal)
-}
+export const handleCheckOutModal = (
+    setCheckOutModal: React.Dispatch<React.SetStateAction<boolean>>,
+    checkOutModal: boolean
+): void => {
+    setCheckOutModal(!checkOutModal);
+};

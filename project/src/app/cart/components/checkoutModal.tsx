@@ -1,4 +1,15 @@
-export default function CheckOutModal({ handleCheckOutModal, checkOutModal, setCheckOutModal, status, handleLogIn, router }) {
+import { useRouter } from 'next/router';
+
+interface CheckOutModalProps {
+    handleCheckOutModal: (setCheckOutModal: React.Dispatch<React.SetStateAction<boolean>>, checkOutModal: boolean) => void;
+    checkOutModal: boolean;
+    setCheckOutModal: React.Dispatch<React.SetStateAction<boolean>>;
+    status: 'authenticated' | 'unauthenticated';
+    handleLogIn: (router: typeof useRouter) => void;
+    router: typeof useRouter;
+}
+
+export default function CheckOutModal({ handleCheckOutModal, checkOutModal, setCheckOutModal, status, handleLogIn, router }: CheckOutModalProps) {
     return (
         <section>
             <div className='fixed w-3/4 border border-black left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] bg-white shadow-2xl md:w-[40%] lg:w-1/4'>

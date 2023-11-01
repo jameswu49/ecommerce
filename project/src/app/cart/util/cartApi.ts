@@ -1,21 +1,41 @@
 import { useEffect } from "react";
 
-export const FetchCartItems = (session, status, setItems) => useEffect(() => {
+type Session = {
+    user: {
+        id: number;
+    }
+}
+
+type CartItem = {
+    product?: {
+        name: string;
+        price: number;
+    };
+    image: string;
+    quantity: number;
+};
+
+// If user is logged in, check for items in local storage and update their cart with it. Else, only show items from local storage 
+export const FetchCartItems = (
+    session: Session,
+    status: 'authenticated',
+    setItems: React.Dispatch<React.SetStateAction<CartItem[]>>
+) => useEffect(() => {
     if (status !== 'authenticated') {
         const cartItems = localStorage.getItem('cart')
-        const parsedCartItems = JSON.parse(cartItems);
+        const parsedCartItems = cartItems ? JSON.parse(cartItems) : null;
 
         if (parsedCartItems) {
             setItems(parsedCartItems)
         }
     } else {
         const cartItems = localStorage.getItem('cart');
-        const parsedCartItems = JSON.parse(cartItems);
+        const parsedCartItems = cartItems ? JSON.parse(cartItems) : null;
 
         if (status === 'authenticated' && parsedCartItems && parsedCartItems.length > 0) {
             const data = {
                 userId: session.user.id,
-                productData: parsedCartItems.map(existingItem => ({
+                productData: parsedCartItems.map((existingItem: CartItem) => ({
                     name: existingItem.product?.name,
                     price: existingItem.product?.price,
                     image: existingItem.image,
@@ -52,7 +72,8 @@ export const FetchCartItems = (session, status, setItems) => useEffect(() => {
     }
 }, [session, setItems, status]);
 
-export const fetchProducts = async (session) => {
+// Get all items in users cart 
+export const fetchProducts = async (session: Session) => {
     try {
         const response = await fetch(`/api/getCartProducts?userId=${session.user.id}`, {
             method: 'GET',
@@ -69,7 +90,16 @@ export const fetchProducts = async (session) => {
     }
 };
 
-export const removeItem = async (index: number, items, session, setItems, setShowModal, showModal, setIsLoading) => {
+// Delete item from users cart  
+export const removeItem = async (
+    index: number,
+    items: any[],
+    session: Session,
+    setItems: React.Dispatch<React.SetStateAction<any[]>>,
+    setShowModal: React.Dispatch<React.SetStateAction<boolean>>,
+    showModal: boolean,
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+) => {
     setIsLoading(true)
     try {
         const response = await fetch(`/api/deleteCartItem?cartItemId=${items[index].id}`, {
@@ -90,10 +120,16 @@ export const removeItem = async (index: number, items, session, setItems, setSho
 
 };
 
-export const removeLocalItem = (index: number, setIsLoading, setShowModal, setItems) => {
+// Remove item from local storage 
+export const removeLocalItem = (
+    index: number,
+    setIsLoading,
+    setShowModal,
+    setItems
+) => {
     setIsLoading(true)
     const cartItems = localStorage.getItem('cart')
-    const parsedCartItems = JSON.parse(cartItems);
+    const parsedCartItems = cartItems ? JSON.parse(cartItems) : null;
     parsedCartItems.splice(index, 1)
     setItems(parsedCartItems)
     const modifiedData = JSON.stringify(parsedCartItems);

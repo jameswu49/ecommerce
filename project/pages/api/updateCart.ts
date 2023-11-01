@@ -19,20 +19,20 @@ export default async function handler(
 
         if (user && user.cart) {
 
-            const existingItem = user.cart.cartItems.filter((item) => {
-                return productData.some((element) => element.image === item.productImage);
+            const existingItem = user.cart.cartItems.filter((item: any) => {
+                return productData.some((element: any) => element.image === item.productImage);
             });
 
-            const newItem = productData.filter((item) => {
-                return !user.cart.cartItems.some((element) => element.productImage === item.image);
+            const newItem = productData.filter((item: any) => {
+                return !user.cart.cartItems.some((element: any) => element.productImage === item.image);
             });
 
             if (existingItem) {
-                const updatedQuantity = existingItem.map((element) => {
+                const updatedQuantity = existingItem.map((element: any) => {
                     return element.quantity
                 })
 
-                const updatedCartItems = await Promise.all(existingItem.map(async (element, index) => {
+                const updatedCartItems = await Promise.all(existingItem.map(async (element: any, index: number) => {
                     const updatedCartItem = await prisma.cartItem.update({
                         where: { id: element.id },
                         data: { quantity: element.quantity + updatedQuantity[index] },
@@ -43,9 +43,9 @@ export default async function handler(
                 res.json(updatedCartItems);
 
             }
-            
+
             if (newItem) {
-                const createdCartItems = await Promise.all(newItem.map(async (element) => {
+                const createdCartItems = await Promise.all(newItem.map(async (element: any) => {
                     const createdCartItem = await prisma.cartItem.create({
                         data: {
                             productName: element.name || '',
