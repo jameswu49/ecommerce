@@ -3,6 +3,17 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+type Item = {
+    id: number,
+    productName: string,
+    name: string,
+    productPrice: number
+    price: number,
+    productImage: string,
+    image: string,
+    quantity: number
+}
+
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
@@ -19,20 +30,20 @@ export default async function handler(
 
         if (user && user.cart) {
 
-            const existingItem = user.cart.cartItems.filter((item: any) => {
-                return productData.some((element: any) => element.image === item.productImage);
+            const existingItem = user.cart.cartItems.filter((item: Item) => {
+                return productData.some((element: Item) => element.image === item.productImage);
             });
 
-            const newItem = productData.filter((item: any) => {
-                return !user.cart.cartItems.some((element: any) => element.productImage === item.image);
+            const newItem = productData.filter((item: Item) => {
+                return !user.cart.cartItems.some((element: Item) => element.productImage === item.image);
             });
 
             if (existingItem) {
-                const updatedQuantity = existingItem.map((element: any) => {
+                const updatedQuantity = existingItem.map((element: Item) => {
                     return element.quantity
                 })
 
-                const updatedCartItems = await Promise.all(existingItem.map(async (element: any, index: number) => {
+                const updatedCartItems = await Promise.all(existingItem.map(async (element: Item, index: number) => {
                     const updatedCartItem = await prisma.cartItem.update({
                         where: { id: element.id },
                         data: { quantity: element.quantity + updatedQuantity[index] },
@@ -45,7 +56,7 @@ export default async function handler(
             }
 
             if (newItem) {
-                const createdCartItems = await Promise.all(newItem.map(async (element: any) => {
+                const createdCartItems = await Promise.all(newItem.map(async (element: Item) => {
                     const createdCartItem = await prisma.cartItem.create({
                         data: {
                             productName: element.name || '',

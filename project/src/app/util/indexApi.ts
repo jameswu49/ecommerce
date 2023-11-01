@@ -71,11 +71,9 @@ export const handleAddToCart = async (
 
         if (response.ok) {
             const cartData = await response.json();
-            console.log('cartItems', cartItems)
             setCartItems(cartData)
             setModal(!modal)
             setIsAddingToCart(false)
-            console.log('cartData', cartData)
         }
     } catch (error) {
         console.error('Error adding to cart:', error);
