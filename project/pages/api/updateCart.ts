@@ -69,7 +69,7 @@ export default async function handler(
                             productPrice: element.price || 0,
                             productImage: element.image || '',
                             quantity: element.quantity || 1,
-                            cart: { connect: { id: user.cart.id } },
+                            cart: { connect: { id: user.cart?.id } },
                         },
                     });
                     console.log(createdCartItem)
