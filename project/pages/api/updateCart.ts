@@ -5,6 +5,7 @@ const prisma = new PrismaClient();
 
 type Item = {
     id: number,
+    cartId: number, 
     productName: string,
     name: string,
     productPrice: number
