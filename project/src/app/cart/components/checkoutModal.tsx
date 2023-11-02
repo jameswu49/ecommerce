@@ -4,7 +4,7 @@ interface CheckOutModalProps {
     handleCheckOutModal: (setCheckOutModal: React.Dispatch<React.SetStateAction<boolean>>, checkOutModal: boolean) => void;
     checkOutModal: boolean;
     setCheckOutModal: React.Dispatch<React.SetStateAction<boolean>>;
-    status: 'authenticated' | 'unauthenticated';
+    status: any;
     handleLogIn: (router: typeof useRouter) => void;
     router: typeof useRouter;
 }

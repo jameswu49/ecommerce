@@ -6,7 +6,6 @@ export default function RemoveItemModal({
     setItems,
     setShowModal,
     setIsLoading,
-    setProductIndex,
     removeItem,
     removeLocalItem,
     isLoading,

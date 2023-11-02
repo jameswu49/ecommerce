@@ -1,5 +1,4 @@
 import React from "react";
-import { Session } from 'next-auth';
 import { useRouter } from "next/navigation";
 
 // Set's the products quantity in cart
@@ -7,7 +6,7 @@ export const handleQuantity = async (
     event: React.ChangeEvent<HTMLSelectElement>,
     index: number,
     items: any[],
-    session: Session,
+    session: any,
     setItems: React.Dispatch<React.SetStateAction<any[]>>,
     itemsInCart: (items: Array<{ quantity: number }>) => number
 ) => {

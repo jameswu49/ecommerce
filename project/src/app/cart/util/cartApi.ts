@@ -1,17 +1,5 @@
 import { useEffect } from "react";
 
-type Session = {
-    user: {
-        id: number;
-    }
-    productData: {
-        name: string,
-        price: number,
-        image: string,
-        quantity: number
-    }
-}
-
 type CartItem = {
     product?: {
         name: string;
