@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 export const useFetchProductDetails = (
     paramsIndex: number,
-    category: string,
+    category: string | null,
     setProduct: Function,
     setImage: Function,
     setImageUrls: Function
