@@ -12,6 +12,12 @@ interface pageProps {
     params: { name: string }
 }
 
+type Product = {
+    mainImage: string,
+    name: string,
+    price: number
+}
+
 const Page: FC<pageProps> = ({ params }) => {
     const [product, setProduct] = useState(null);
     const [isLoading, setIsLoading] = useState(false)
