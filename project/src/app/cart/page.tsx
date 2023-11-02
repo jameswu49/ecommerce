@@ -43,7 +43,6 @@ export default function Cart() {
                         removeItem={removeItem}
                         removeLocalItem={removeLocalItem}
                         handleCloseModal={handleCloseModal}
-                        setProductIndex={setProductIndex}
                         isLoading={isLoading}
                     />}
 
