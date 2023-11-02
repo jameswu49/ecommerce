@@ -76,7 +76,7 @@ const Page: FC<pageProps> = ({ params }) => {
                         </div>
                     ) : (
                         <>
-                            {product && product?.map((elements: Product, index: number) => (
+                            {product && product.map((elements: Product, index: number) => (
                                 <div key={index} className="center-products items-center text-center my-5 w-3/4 mx-auto cursor-pointer lg:w-1/4 lg:justify-end lg:text-center" >
                                     <Link href={`/shop/${items[id]?.name}/${index}?category=${items[id]?.name}`}>
                                         <Image src={elements.mainImage} alt={elements.name} width={500} height={500} className="items" />
