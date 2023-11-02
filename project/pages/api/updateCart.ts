@@ -7,7 +7,7 @@ type Item = {
     id: number,
     cartId: number,
     productName: string,
-    productPrice: number
+    productPrice: number,
     productImage: string | null,
     quantity: number
 }

@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 type Credentials = {
     csrfToken: string,
     username: string,
-    password: string | null
+    password: string,
 }
 
 const authOptions: NextAuthOptions = {
@@ -18,7 +18,7 @@ const authOptions: NextAuthOptions = {
                 username: { label: 'Username', type: 'text', placeholder: 'Username' },
                 password: { label: 'Password', type: 'password' },
             },
-            async authorize(credentials: Credentials, req: any) {
+            async authorize(credentials: Credentials | null, req: any) {
                 console.log(credentials)
                 try {
                     const existingUser = await prisma.user.findUnique({
