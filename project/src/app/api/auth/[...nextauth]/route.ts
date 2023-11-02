@@ -24,7 +24,11 @@ const authOptions: NextAuthOptions = {
                     });
 
                     if (existingUser) {
-                        return existingUser
+                        return {
+                            id: existingUser.id,
+                            username: existingUser.username,
+                            password: existingUser.password
+                        };
                     }
                     return null;
 
