@@ -37,7 +37,7 @@ const Page: FC<pageProps> = ({ params }) => {
 
     return (
         <>
-            <Modal modal={modal} setModal={setModal} cartItems={cartItems} router={router} image={imageUrls[0]} setCartItems={setCartItems} />
+            <Modal modal={modal} setModal={setModal} cartItems={cartItems} router={router} image={imageUrls[0]} />
             {product && (
                 <section className='flex flex-col items-center justify-center lg:h-screen'>
                     <div className='flex flex-col my-5'>
