@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FaTrashAlt } from "react-icons/fa";
 import { useSession } from "next-auth/react"
 import Image from '../../../node_modules/next/image';

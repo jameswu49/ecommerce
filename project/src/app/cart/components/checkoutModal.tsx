@@ -1,12 +1,10 @@
-import { useRouter } from 'next/router';
-
 interface CheckOutModalProps {
     handleCheckOutModal: (setCheckOutModal: React.Dispatch<React.SetStateAction<boolean>>, checkOutModal: boolean) => void;
     checkOutModal: boolean;
     setCheckOutModal: React.Dispatch<React.SetStateAction<boolean>>;
     status: any;
-    handleLogIn: (router: typeof useRouter) => void;
-    router: typeof useRouter;
+    handleLogIn: (router: any) => void;
+    router: any;
 }
 
 export default function CheckOutModal({ handleCheckOutModal, checkOutModal, setCheckOutModal, status, handleLogIn, router }: CheckOutModalProps) {
