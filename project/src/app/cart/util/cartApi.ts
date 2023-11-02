@@ -4,6 +4,12 @@ type Session = {
     user: {
         id: number;
     }
+    productData: {
+        name: string,
+        price: number,
+        image: string,
+        quantity: number
+    }
 }
 
 type CartItem = {
@@ -34,7 +40,7 @@ export const FetchCartItems = (
 
         if (status === 'authenticated' && parsedCartItems && parsedCartItems.length > 0) {
             const data = {
-                userId: session.user?.id,
+                userId: session.user.id,
                 productData: parsedCartItems.map((existingItem: CartItem) => ({
                     name: existingItem.product?.name,
                     price: existingItem.product?.price,
