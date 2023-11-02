@@ -89,7 +89,7 @@ export const closeModal = (
 };
 
 export const updateQuantity = (
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: React.ChangeEvent<HTMLSelectElement>,
     setQuantity: React.Dispatch<React.SetStateAction<number>>
 ) => {
     setQuantity(parseInt(event.target.value, 10));

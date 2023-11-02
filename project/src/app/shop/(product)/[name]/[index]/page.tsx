@@ -94,7 +94,7 @@ const Page: FC<pageProps> = ({ params }) => {
                                 <div className='flex justify-between w-3/4 mt-5 md:w-1/2 lg:w-[40%]'>
                                     <div>
                                         <p>Quantity</p>
-                                        <select onChange={(e) => updateQuantity(e, setQuantity)}>
+                                        <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) => updateQuantity(e, setQuantity)}>
                                             {Array.from({ length: 10 }, (_, index) => (
                                                 <option key={index} value={index + 1}>
                                                     {index + 1}
