@@ -4,11 +4,11 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
 const prisma = new PrismaClient();
 
-type User = {
-    id: string,
-    username: string,
-    password: string
-}
+// type User = {
+//     id: string,
+//     username: string,
+//     password: string
+// }
 
 const authOptions: NextAuthOptions = {
     providers: [

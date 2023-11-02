@@ -17,7 +17,7 @@ type CartItem = {
 
 // If user is logged in, check for items in local storage and update their cart with it. Else, only show items from local storage 
 export const FetchCartItems = (
-    session: Session,
+    session: Session | null,
     status: 'authenticated',
     setItems: React.Dispatch<React.SetStateAction<CartItem[]>>
 ) => useEffect(() => {
