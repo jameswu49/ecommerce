@@ -8,7 +8,7 @@ import { signIn, signOut, useSession } from "next-auth/react"
 
 
 export default function Sidebar() {
-    const { handleMenuToggle, handleActiveLink, isOpen, id } = useSidebarContext()
+    const { handleMenuToggle, handleActiveLink, isOpen } = useSidebarContext()
 
     const { data: session } = useSession();
 
@@ -26,7 +26,7 @@ export default function Sidebar() {
                         <Link key={index} href={elements.href} onClick={() => handleActiveLink(index)}>
                             <>
                                 {elements.name}
-                                <div className={`${index === id ? 'border-t-[red] border-2' : ''}`} />
+                                {/* <div className={`${index === id ? 'border-t-[red] border-2' : ''}`} /> */}
                             </>
                         </Link>
                     ))}

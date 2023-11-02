@@ -11,7 +11,7 @@ import { signIn, signOut, useSession } from "next-auth/react"
 
 export default function Navbar() {
     const [currentTimeString, setCurrentTimeString] = useState('');
-    const { handleMenuToggle, isOpen, id, handleActiveLink, setId } = useSidebarContext()
+    const { handleMenuToggle, isOpen, handleActiveLink } = useSidebarContext()
 
     const { data: session } = useSession();
 
@@ -51,7 +51,7 @@ export default function Navbar() {
                         />
                     </div>
                 </Link> :
-                    <Link href={'/'} onClick={() => setId(-1)}>
+                    <Link href={'/'}>
                         <div className="relative w-40 h-16 cursor-pointer lg:w-48">
                             <Image src={logo}
                                 alt={'banner'}
@@ -71,7 +71,7 @@ export default function Navbar() {
                 {navbarLinks.map((links, index) => (
                     <div key={index} className='flex flex-col'>
                         <Link href={links.href} onClick={() => handleActiveLink(index)}>{links.name}</Link>
-                        <div className={`${index === id ? 'border-t-[red] border-2' : ''}`} />
+                        {/* <div className={`${index === id ? 'border-t-[red] border-2' : ''}`} /> */}
                     </div>
                 ))}
                 {session ? (

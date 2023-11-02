@@ -24,7 +24,7 @@ export default function Modal({ modal, setModal, cartItems, router, image }: Mod
     useEffect(() => {
         if (status !== 'authenticated') {
             const cartItems = localStorage.getItem('cart')
-            const parsedCartItems = JSON.parse(cartItems);
+            const parsedCartItems = JSON.parse(cartItems || '');
 
             if (parsedCartItems) {
                 setItems(parsedCartItems)
