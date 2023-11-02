@@ -5,7 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 const prisma = new PrismaClient();
 
 type User = {
-    id: number,
+    id: string,
     username: string,
     password: string
 }
