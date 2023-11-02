@@ -33,7 +33,7 @@ const Page: FC<pageProps> = ({ params }) => {
     const { data: session } = useSession();
 
     // useEffect to fetch all details about the product 
-    useFetchProductDetails(params.index, category, setProduct, setImage, setImageUrls);
+    useFetchProductDetails(params.index, category ?? "", setProduct, setImage, setImageUrls);
 
     return (
         <>

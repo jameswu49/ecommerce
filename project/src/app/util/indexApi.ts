@@ -10,7 +10,6 @@ export const useFetchProductDetails = (
     useEffect(() => {
         async function fetchProductDetails() {
             try {
-                if (paramsIndex && category) {
                     const response = await fetch(`/api/getProductDetails?id=${paramsIndex}&category=${category}`);
                     if (response.ok) {
                         const productData = await response.json();
@@ -27,7 +26,6 @@ export const useFetchProductDetails = (
                     } else {
                         console.error('Error fetching product details:', response.status, response.statusText);
                     }
-                }
             } catch (error) {
                 console.error('Error fetching product details:', error);
             }
