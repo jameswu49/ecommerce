@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 export const useFetchProductDetails = (
     paramsIndex: number,
-    category: string | null,
+    category: string,
     setProduct: Function,
     setImage: Function,
     setImageUrls: Function
@@ -10,21 +10,23 @@ export const useFetchProductDetails = (
     useEffect(() => {
         async function fetchProductDetails() {
             try {
-                const response = await fetch(`/api/getProductDetails?id=${paramsIndex}&category=${category}`);
-                if (response.ok) {
-                    const productData = await response.json();
-                    setProduct(productData);
-                    setImage(productData.mainImage);
-                    const imageArray = productData?.images[0];
-                    const imageUrls = [
-                        imageArray.image1,
-                        imageArray.image2,
-                        imageArray.image3,
-                        imageArray.image4
-                    ].filter(url => url !== null && url !== "");
-                    setImageUrls(imageUrls);
-                } else {
-                    console.error('Error fetching product details:', response.status, response.statusText);
+                if (paramsIndex && category) {
+                    const response = await fetch(`/api/getProductDetails?id=${paramsIndex}&category=${category}`);
+                    if (response.ok) {
+                        const productData = await response.json();
+                        setProduct(productData);
+                        setImage(productData.mainImage);
+                        const imageArray = productData?.images[0];
+                        const imageUrls = [
+                            imageArray.image1,
+                            imageArray.image2,
+                            imageArray.image3,
+                            imageArray.image4
+                        ].filter(url => url !== null && url !== "");
+                        setImageUrls(imageUrls);
+                    } else {
+                        console.error('Error fetching product details:', response.status, response.statusText);
+                    }
                 }
             } catch (error) {
                 console.error('Error fetching product details:', error);
