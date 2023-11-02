@@ -1,5 +1,4 @@
 import React from "react";
-import { useRouter } from "next/navigation";
 
 // Set's the products quantity in cart
 export const handleQuantity = async (
@@ -69,7 +68,7 @@ export const itemsInCart = (items: Array<{ quantity: number }>) => {
 }
 
 // Redirect to login page if not logged in 
-export const handleLogIn = (router: typeof useRouter) => {
+export const handleLogIn = (router: any) => {
     router.push('/api/auth/signin')
 }
 
