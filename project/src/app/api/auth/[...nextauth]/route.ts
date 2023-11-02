@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import NextAuth, { NextAuthOptions, Session } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { User as UserModel } from '@prisma/client'
 
 const prisma = new PrismaClient();
 
@@ -10,7 +11,7 @@ type Credentials = {
 }
 
 type User = {
-    id: number,
+    id: string,
     username: string,
     password: string
 }
@@ -30,7 +31,6 @@ const authOptions: NextAuthOptions = {
                     });
 
                     if (user) {
-                        console.log(user)
                         return user
                     }
                     return null;
