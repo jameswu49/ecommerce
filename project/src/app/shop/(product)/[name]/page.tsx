@@ -17,7 +17,7 @@ const Page: FC<pageProps> = ({ params }) => {
     const [isLoading, setIsLoading] = useState(false)
 
     const search = useSearchParams();
-    const id = search.get('id')
+    const id = search?.get('id')
 
     useEffect(() => {
         setIsLoading(true)
