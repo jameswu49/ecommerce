@@ -34,7 +34,7 @@ export const FetchCartItems = (
 
         if (status === 'authenticated' && parsedCartItems && parsedCartItems.length > 0) {
             const data = {
-                userId: session.user.id,
+                userId: session.user?.id,
                 productData: parsedCartItems.map((existingItem: CartItem) => ({
                     name: existingItem.product?.name,
                     price: existingItem.product?.price,
