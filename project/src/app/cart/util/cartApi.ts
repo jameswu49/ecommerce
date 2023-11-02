@@ -67,7 +67,7 @@ export const FetchCartItems = (
 }, [session, setItems, status]);
 
 // Get all items in users cart 
-export const fetchProducts = async (session: Session) => {
+export const fetchProducts = async (session: any) => {
     try {
         const response = await fetch(`/api/getCartProducts?userId=${session.user.id}`, {
             method: 'GET',
