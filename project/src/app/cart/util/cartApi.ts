@@ -123,7 +123,7 @@ export const removeLocalItem = (
 ) => {
     setIsLoading(true)
     const cartItems = localStorage.getItem('cart')
-    const parsedCartItems = cartItems ? JSON.parse(cartItems) : null;
+    const parsedCartItems = JSON.parse(cartItems || '');
     parsedCartItems.splice(index, 1)
     setItems(parsedCartItems)
     const modifiedData = JSON.stringify(parsedCartItems);
