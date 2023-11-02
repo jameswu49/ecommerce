@@ -18,7 +18,7 @@ const authOptions: NextAuthOptions = {
                 username: { label: 'Username', type: 'text', placeholder: 'Username' },
                 password: { label: 'Password', type: 'password' },
             },
-            async authorize(credentials: Record<"username" | "password", string> | undefined): Promise<User | null> {
+            async authorize(credentials: Record<"username" | "password", string> | undefined): Promise<any | null> {
                 try {
                     const user = await prisma.user.findUnique({
                         where: { username: credentials?.username, password: credentials?.password },
