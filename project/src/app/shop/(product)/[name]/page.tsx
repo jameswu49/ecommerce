@@ -19,7 +19,7 @@ type Product = {
 }
 
 const Page: FC<pageProps> = ({ params }) => {
-    const [product, setProduct] = useState(null);
+    const [product, setProduct] = useState<Product[] | []>([]);
     const [isLoading, setIsLoading] = useState(false)
 
     const search = useSearchParams();
