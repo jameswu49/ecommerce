@@ -1,9 +1,6 @@
-import { useEffect, useState } from "react";
 import Image from "../../../node_modules/next/image";
 import { AiOutlineClose } from "react-icons/ai";
 import { closeModal } from "../util/indexFunctions"
-import { fetchProducts } from "../cart/util/cartApi";
-import { Oval } from 'react-loading-icons'
 
 import { useSession } from "next-auth/react"
 
@@ -16,8 +13,6 @@ interface ModalProps {
 }
 
 export default function Modal({ modal, setModal, cartItems, router, image }: ModalProps) {
-    const [items, setItems] = useState([])
-    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const { data: session, status } = useSession();
 
