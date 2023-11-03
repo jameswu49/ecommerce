@@ -14,7 +14,7 @@ interface ModalProps {
 
 export default function Modal({ modal, setModal, cartItems, router, image }: ModalProps) {
 
-    const { data: session, status } = useSession();
+    const { data: session } = useSession();
 
     return (
         <>

@@ -142,27 +142,3 @@ model CartItem {
   quantity     Int
   cart         Cart    @relation(fields: [cartId], references: [id])
 }
-
-model GuestUser {
-  id          Int       @id @default(autoincrement())
-  guestId     String    @unique
-  guestCart   GuestCart @relation(fields: [guestCartId], references: [id])
-  guestCartId Int
-}
-
-model GuestCart {
-  id          Int             @id @default(autoincrement())
-  guestUserId Int
-  cartItems   GuestCartItem[]
-  GuestUser   GuestUser[]
-}
-
-model GuestCartItem {
-  id           Int       @id @default(autoincrement())
-  guestCartId  Int
-  productName  String
-  productPrice Float
-  productImage String?
-  quantity     Int
-  guestCart    GuestCart @relation(fields: [guestCartId], references: [id])
-}
