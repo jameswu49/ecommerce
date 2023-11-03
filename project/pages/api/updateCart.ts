@@ -45,7 +45,7 @@ export default async function handler(
             });
 
             if (existingItem) {
-                const updatedQuantity = existingItem.map((item: Item) => {
+                const updatedQuantity = productData.map((item: Item) => {
                     return item.quantity
                 })
 
