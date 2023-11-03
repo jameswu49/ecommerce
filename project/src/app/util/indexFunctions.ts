@@ -110,7 +110,8 @@ export const addToLocalStorage = (
         quantity,
     };
 
-    const existingCart = JSON.parse(localStorage.getItem('cart' || ''));
+    const cartData = localStorage.getItem('cart');
+    const existingCart = cartData ? JSON.parse(cartData) : [];
 
     const existingCartItem = existingCart.find((item: any) => item.image === image);
 
