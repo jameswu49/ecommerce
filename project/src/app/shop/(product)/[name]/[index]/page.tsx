@@ -9,7 +9,6 @@ import { useSession } from "next-auth/react"
 import { useFetchProductDetails, handleAddToCart } from "../../../../util/indexApi"
 import { handleThumbnailImage, handleNextImage, handlePreviousImage, handleImageChange, updateQuantity, addToLocalStorage } from "../../../../util/indexFunctions"
 import Modal from "../../../../components/modal"
-
 import { Oval } from 'react-loading-icons'
 
 
