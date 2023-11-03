@@ -21,8 +21,8 @@ const authOptions: NextAuthOptions = {
                     if (!user && credentials?.username !== '' && credentials?.password !== '') {
                         user = await prisma.user.create({
                             data: {
-                                username: credentials?.username,
-                                password: credentials?.password,
+                                username: credentials?.username as string,
+                                password: credentials?.password as string,
                             },
                         });
 
