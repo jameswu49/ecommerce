@@ -4,6 +4,7 @@ import Image from "../../../node_modules/next/image"
 import data from "../data/storeLocations"
 import { useTransition, animated } from '@react-spring/web';
 
+// Stores for mobile 
 export function MobileStores() {
     return (
         <div className="mb-5 md:hidden">
@@ -33,6 +34,7 @@ export function MobileStores() {
     )
 }
 
+// Stores for laptop and above screens 
 export function DesktopStores() {
     const [id, setId] = useState(0)
 
