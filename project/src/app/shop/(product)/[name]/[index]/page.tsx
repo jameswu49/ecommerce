@@ -10,6 +10,9 @@ import { useFetchProductDetails, handleAddToCart } from "../../../../util/indexA
 import { handleThumbnailImage, handleNextImage, handlePreviousImage, handleImageChange, updateQuantity, addToLocalStorage } from "../../../../util/indexFunctions"
 import Modal from "../../../../components/modal"
 
+import { Oval } from 'react-loading-icons'
+
+
 interface pageProps {
     params: { index: number }
 }
@@ -25,6 +28,9 @@ const Page: FC<pageProps> = ({ params }) => {
     const [isAddingToCart, setIsAddingToCart] = useState<boolean>(false)
     const [quantity, setQuantity] = useState<number>(1)
 
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+
+
     const router = useRouter()
 
     const search = useSearchParams();
@@ -33,10 +39,15 @@ const Page: FC<pageProps> = ({ params }) => {
     const { data: session } = useSession();
 
     // useEffect to fetch all details about the product 
-    useFetchProductDetails(params.index, category ?? "", setProduct, setImage, setImageUrls);
+    useFetchProductDetails(params.index, category ?? "", setProduct, setImage, setImageUrls, setIsLoading);
 
     return (
         <>
+            {isLoading && (
+                <div className="flex items-center justify-center h-[80vh] lg:h-screen">
+                    <Oval className='h-20 w-20' stroke="grey" />
+                </div>
+            )}
             <Modal modal={modal} setModal={setModal} cartItems={cartItems} router={router} image={imageUrls[0]} />
             {product && (
                 <section className='flex flex-col items-center justify-center lg:h-screen'>
@@ -122,6 +133,7 @@ const Page: FC<pageProps> = ({ params }) => {
                 </section>
             )
             }
+
         </>
     );
 }
