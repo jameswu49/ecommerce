@@ -7,6 +7,10 @@ body {
     margin: 0 auto;
 }
 
+.no-scroll {
+    overflow: hidden;
+}
+
 .red {
     color: #E21D15;
 }
@@ -45,12 +49,6 @@ body {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-}
-
-.modal-text {
-    display: flex;
-    justify-content: space-between;
-    margin: 1rem 1rem;
 }
 
 .modal-buttons {
