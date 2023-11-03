@@ -1,8 +1,11 @@
 // components/SignUpForm.tsx
 'use client'
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function SignUpForm() {
+    const router = useRouter()
+
     const [formData, setFormData] = useState({
         username: '',
         password: '',
@@ -28,6 +31,7 @@ export default function SignUpForm() {
 
             if (response.status === 200) {
                 // User created successfully, handle success (e.g., redirect)
+                router.push('/news')
                 console.log('User created successfully');
             } else {
                 // Handle the case where user creation failed

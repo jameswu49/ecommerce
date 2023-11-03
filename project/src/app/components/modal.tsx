@@ -32,7 +32,7 @@ export default function Modal({ modal, setModal, cartItems, router, image }: Mod
     return (
         <>
             <div className={`${!modal ? 'hidden' : ''}`}>
-                <div className='modal w-[90%]'>
+                <div className='modal w-[90%] z-40'>
                     <div className='flex justify-between m-[1rem] items-center'>
                         <div>
                             <p className='text-xl font-semibold'>Added to cart.</p>

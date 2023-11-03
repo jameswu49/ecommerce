@@ -4,12 +4,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
 const prisma = new PrismaClient();
 
-// type User = {
-//     id: string,
-//     username: string,
-//     password: string
-// }
-
 const authOptions: NextAuthOptions = {
     providers: [
         CredentialsProvider({
@@ -20,14 +14,25 @@ const authOptions: NextAuthOptions = {
             },
             async authorize(credentials: Record<"username" | "password", string> | undefined): Promise<any | null> {
                 try {
-                    const user = await prisma.user.findUnique({
+                    let user = await prisma.user.findUnique({
                         where: { username: credentials?.username, password: credentials?.password },
                     });
 
-                    if (user) {
-                        return user
+                    if (!user && credentials?.username !== '' && credentials?.password !== '') {
+                        user = await prisma.user.create({
+                            data: {
+                                username: credentials?.username,
+                                password: credentials?.password,
+                            },
+                        });
+
+                        const newCart = await prisma.cart.create({
+                            data: {
+                                userId: user.id,
+                            },
+                        });
                     }
-                    return null;
+                    return user
 
                 } catch (error) {
                     console.error("Error during authorization:", error);
