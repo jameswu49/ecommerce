@@ -19,7 +19,7 @@ export default function SignIn() {
             // callbackUrl: null, // Redirect URL after successful sign-in
         });
 
-        if (result.error) {
+        if (result?.error) {
             console.log(result.error)
             console.error("Sign-in error:", result.error);
         } else {
