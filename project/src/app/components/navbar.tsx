@@ -90,7 +90,7 @@ export default function Navbar() {
                     <div className='relative'>
                         <span className='cursor-pointer' onClick={toggleDropdown}>Account</span>
                         {open && (
-                            <div className='absolute border border-black w-[10rem] h-[6rem] right-0 top-7 flex flex-col justify-center gap-y-3 z-50 bg-white'>
+                            <div className='absolute border border-black w-[10rem] h-[6rem] right-[-2rem] top-9 flex flex-col justify-center gap-y-3 z-50 bg-white'>
                                 <div>
                                     <Link href={'/signup'} className="cursor-pointer">
                                         Sign Up

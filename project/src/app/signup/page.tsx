@@ -28,7 +28,7 @@ export default function SignUpForm() {
             password: formData.password,
         });
 
-        if (result.error) {
+        if (result?.error) {
             console.error("Sign-in error:", result.error);
         } else {
             router.push("/");
