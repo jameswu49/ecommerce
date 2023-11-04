@@ -35,7 +35,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "pages/api/resetTable.ts",
-    "src/app/api/auth/[...nextauth]/route"
+    "src/app/pages/api/auth/[...nextauth]/route"
   ],
   "exclude": [
     "node_modules"

@@ -18,20 +18,6 @@ const authOptions: NextAuthOptions = {
                         where: { username: credentials?.username, password: credentials?.password },
                     });
 
-                    if (!user && credentials?.username !== '' && credentials?.password !== '') {
-                        user = await prisma.user.create({
-                            data: {
-                                username: credentials?.username as string,
-                                password: credentials?.password as string,
-                            },
-                        });
-
-                        const newCart = await prisma.cart.create({
-                            data: {
-                                userId: user.id,
-                            },
-                        });
-                    }
                     return user
 
                 } catch (error) {

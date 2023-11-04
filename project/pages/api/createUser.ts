@@ -11,6 +11,10 @@ export default async function handler(
     if (req.method === 'POST') {
         const { username, password } = req.body;
 
+        if (!username || !password || username.trim() === '' || password.trim() === '') {
+            return res.status(400).json({ error: 'Username and password are required' });
+        }
+
         try {
             const newUser = await prisma.user.create({
                 data: {
@@ -28,7 +32,7 @@ export default async function handler(
             res.status(200).json({ success: true });
         } catch (error) {
             console.error('Error creating user:', error);
-            res.status(500).json({ error: 'User creation failed' });
+            res.status(500).json({ error: 'Username already exists' });
         } finally {
             await prisma.$disconnect();
         }

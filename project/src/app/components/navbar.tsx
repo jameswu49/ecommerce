@@ -15,6 +15,16 @@ export default function Navbar() {
 
     const { data: session } = useSession();
 
+    const [open, setIsOpen] = useState(false);
+
+    const toggleDropdown = () => {
+        setIsOpen(!open);
+    };
+
+    const closeDropdown = () => {
+        setIsOpen(false);
+    };
+
     const updateTime = () => {
         const currentDate = new Date();
         const options: Intl.DateTimeFormatOptions = {
@@ -77,7 +87,22 @@ export default function Navbar() {
                 {session ? (
                     <div><button onClick={() => signOut()}>Sign Out</button></div>
                 ) : (
-                    <div><button onClick={() => signIn()}>Sign In</button></div>
+                    <div className='relative'>
+                        <span className='cursor-pointer' onClick={toggleDropdown}>Account</span>
+                        {open && (
+                            <div className='absolute border border-black w-[10rem] h-[6rem] right-0 top-7 flex flex-col justify-center gap-y-3 z-50 bg-white'>
+                                <div>
+                                    <Link href={'/signup'} className="cursor-pointer">
+                                        Sign Up
+                                    </Link>
+                                </div>
+                                <hr />
+                                <div>
+                                    <button onClick={() => signIn()} className="cursor-pointer">Sign In</button>
+                                </div>
+                            </div>
+                        )}
+                    </div>
                 )}
             </div>
 
