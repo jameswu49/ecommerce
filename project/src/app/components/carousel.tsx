@@ -2,7 +2,7 @@
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Image from "../../../node_modules/next/image";
-import banner from "../images/banner.png"
+import hat from "../images/hat.jpg"
 import money from "../images/money.jpg"
 import skateboard from "../images/skateboard.jpg"
 import person from "../images/person.jpg"
@@ -35,7 +35,7 @@ export default function HomeCarousel() {
                 draggable={true}
                 showDots={true}
                 responsive={responsive}
-                ssr={true} // means to render carousel on server-side.
+                ssr={true}
                 infinite={true}
                 autoPlay={true}
                 autoPlaySpeed={3000}
@@ -44,14 +44,13 @@ export default function HomeCarousel() {
                 transitionDuration={500}
                 containerClass="carousel-container"
                 removeArrowOnDeviceType={["tablet", "mobile", "desktop"]}
-                // deviceType={this.props.deviceType}
                 dotListClass="custom-dot-list-style"
                 itemClass="carousel-item-padding-40-px"
             >
-                <div><Image src={banner} alt={''} /></div>
                 <div><Image src={money} alt={''} /></div>
-                <div><Image src={skateboard} alt={''} /></div>
                 <div><Image src={person} alt={''} /></div>
+                <div><Image src={hat} alt={''} /></div>
+                <div><Image src={skateboard} alt={''} /></div>
             </Carousel>
         </section>
     )
