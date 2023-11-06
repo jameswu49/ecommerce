@@ -21,10 +21,6 @@ export default function Navbar() {
         setIsOpen(!open);
     };
 
-    const closeDropdown = () => {
-        setIsOpen(false);
-    };
-
     const updateTime = () => {
         const currentDate = new Date();
         const options: Intl.DateTimeFormatOptions = {
@@ -51,7 +47,7 @@ export default function Navbar() {
     }, []);
 
     return (
-        <nav className="h-32 flex items-center justify-center text-center relative z-20 lg:p-5 lg:justify-between">
+        <nav className="h-[20vh] flex items-center justify-center text-center relative z-20 lg:p-5 lg:justify-between">
             <div>
                 {isOpen ? <Link href={'/'} onClick={() => handleActiveLink(-1)}>
                     <div className="relative w-40 h-16 cursor-pointer lg:w-48">
@@ -92,7 +88,7 @@ export default function Navbar() {
                         {open && (
                             <div className='absolute border border-black w-[10rem] h-[6rem] right-[-2rem] top-9 flex flex-col justify-center gap-y-3 z-50 bg-white'>
                                 <div>
-                                    <Link href={'/signup'} className="cursor-pointer">
+                                    <Link href={'/signup'} className="cursor-pointer" onClick={toggleDropdown}>
                                         Sign Up
                                     </Link>
                                 </div>

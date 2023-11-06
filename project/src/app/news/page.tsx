@@ -1,4 +1,3 @@
-import Navbar from "../components/navbar"
 import Banner from "../components/banner"
 import Shoes from "../components/shoes"
 import Collabs from "../components/collab"

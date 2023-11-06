@@ -19,7 +19,8 @@
     "react": "latest",
     "react-dom": "latest",
     "react-icons": "^4.11.0",
-    "react-loading-icons": "^1.1.0"
+    "react-loading-icons": "^1.1.0",
+    "react-multi-carousel": "^2.8.4"
   },
   "devDependencies": {
     "@types/node": "^20.8.0",

@@ -6,12 +6,12 @@ import logo from "../images/supreme.png"
 export default function Footer() {
     const pathname = usePathname();
 
-    if (pathname === '/') {
+    if (pathname === '') {
         return null
     }
 
     return (
-        <footer className="h-40 w-full bg-[#F2F2F2] flex flex-col items-center px-5 pt-10 justify-evenly md:flex-row">
+        <footer className="h-[20vh] w-full bg-[#F2F2F2] flex flex-col items-center px-5 pt-10 justify-evenly md:flex-row">
             <div className="relative w-20 h-8">
                 <Image src={logo} alt={'logo'} fill />
             </div>

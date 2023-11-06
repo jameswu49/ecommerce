@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 export default function RemoveItemModal({
     showModal,
     productIndex,
@@ -11,6 +13,18 @@ export default function RemoveItemModal({
     isLoading,
     handleCloseModal
 }) {
+    useEffect(() => {
+        if (showModal) {
+            document.body.classList.add('no-scroll');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            document.body.classList.remove('no-scroll');
+        }
+        return () => {
+            document.body.classList.remove('no-scroll');
+        };
+    }, [showModal]);
+
     return showModal && (
         <div className='fixed w-3/4 left-[50%] top-[40%] translate-x-[-50%] translate-y-[-50%] bg-white shadow-2xl md:w-[65%] lg:w-1/2'>
             <p className='pl-5 py-3'>Remove Item</p>
