@@ -1,4 +1,5 @@
 import { useEffect } from "react"
+import handleCheckOut from "./checkoutButton"
 
 interface CheckOutModalProps {
     handleCheckOutModal: (setCheckOutModal: React.Dispatch<React.SetStateAction<boolean>>, checkOutModal: boolean) => void;
@@ -7,9 +8,13 @@ interface CheckOutModalProps {
     status: any;
     handleLogIn: (router: any) => void;
     router: any;
+
+    items: any;
+    session: any;
+    total: any;
 }
 
-export default function CheckOutModal({ handleCheckOutModal, checkOutModal, setCheckOutModal, status, handleLogIn, router }: CheckOutModalProps) {
+export default function CheckOutModal({ handleCheckOutModal, checkOutModal, setCheckOutModal, status, handleLogIn, router, items, session, total }: CheckOutModalProps) {
 
     useEffect(() => {
         if (status !== 'authenticated') {
@@ -31,9 +36,10 @@ export default function CheckOutModal({ handleCheckOutModal, checkOutModal, setC
                         <div className='absolute top-2 right-5' onClick={() => handleCheckOutModal(setCheckOutModal, checkOutModal)}>X</div>
                         <div className='flex flex-col items-center gap-y-6 md:justify-center md:gap-x-4'>
                             <button className='bg-[red] text-white w-[90%] py-2' onClick={() => handleLogIn(router)}>Log in</button>
-                            <button className='border border-black w-[90%] py-2'>Guest Checkout</button>
+                            <button className='border border-black w-[90%] py-2' onClick={() => handleCheckOut(total, items, session, router)}>Guest Checkout</button>
                         </div>
-                    </div>}
+                    </div>
+                }
             </div>
         </section>
     )

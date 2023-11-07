@@ -89,7 +89,7 @@ export default function Navbar() {
                             <div className='absolute border border-black w-[10rem] h-[6rem] right-[-2rem] top-9 flex flex-col justify-center gap-y-3 z-50 bg-white'>
                                 <div>
                                     <Link href={'/signup'} className="cursor-pointer" onClick={toggleDropdown}>
-                                        Sign Up
+                                        Create Account
                                     </Link>
                                 </div>
                                 <hr />

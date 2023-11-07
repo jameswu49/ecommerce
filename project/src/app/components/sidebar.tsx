@@ -33,7 +33,10 @@ export default function Sidebar() {
                     {session ? (
                         <div><button onClick={() => signOut()}>Sign Out</button></div>
                     ) : (
-                        <div><button onClick={() => signIn()}>Sign In</button></div>
+                        <>
+                            <div><button onClick={() => signIn()}>Sign In</button></div>
+                            <Link href={'/signup'}>Create Account</Link>
+                        </>
                     )}
                 </div>
             </div>

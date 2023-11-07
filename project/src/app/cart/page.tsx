@@ -10,6 +10,8 @@ import { useRouter } from 'next/navigation';
 import CheckOutModal from './components/checkoutModal';
 import RemoveItemModal from './components/removeItemModal';
 
+import handleCheckout from './components/checkoutButton';
+
 export default function Cart() {
     const [items, setItems] = useState<any>([])
     const [showModal, setShowModal] = useState(false)
@@ -47,7 +49,7 @@ export default function Cart() {
                     />}
 
                     {/* Modal for user to log in and checkout or checkout as a guest*/}
-                    {checkOutModal && <CheckOutModal checkOutModal={checkOutModal} handleCheckOutModal={handleCheckOutModal} setCheckOutModal={setCheckOutModal} status={status} handleLogIn={handleLogIn} router={router} />}
+                    {checkOutModal && <CheckOutModal checkOutModal={checkOutModal} handleCheckOutModal={handleCheckOutModal} setCheckOutModal={setCheckOutModal} status={status} handleLogIn={handleLogIn} router={router} items={items} session={session} total={total} />}
                     <div className='min-h-[70vh] mb-5'>
                         {items?.map((data: any, index: number) => (
                             <div key={index} className="flex h-fit">
@@ -77,7 +79,7 @@ export default function Cart() {
                             </div>
                         ))}
                     </div>
-                    {items?.length > 0 &&
+                    {items?.length > 0 && status === 'unauthenticated' ? (
                         <>
                             <div className='flex justify-center lg:hidden'>
                                 <button className='bg-[red] text-white py-1 px-2' onClick={() => handleCheckOutModal(setCheckOutModal, checkOutModal)}>Checkout</button>
@@ -90,6 +92,18 @@ export default function Cart() {
                                 <span>subtotal: <span className='font-bold'>${total(items, session)}</span></span>
                             </div>
                         </>
+                    ) : <>
+                        <div className='flex justify-center lg:hidden'>
+                            <button className='bg-[red] text-white py-1 px-2' onClick={() => handleCheckout(total, items, session, router)}>Checkout</button>
+                        </div>
+                        <div className='flex justify-around items-center h-16 lg:h-20'>
+                            <span>{itemsInCart(items)} item(s) in your cart.</span>
+                            <div className='hidden lg:block'>
+                                <button className='bg-[red] text-white py-1 px-2' onClick={() => handleCheckout(total, items, session, router)}>Checkout</button>
+                            </div>
+                            <span>subtotal: <span className='font-bold'>${total(items, session)}</span></span>
+                        </div>
+                    </>
                     }
                 </div>
             )
