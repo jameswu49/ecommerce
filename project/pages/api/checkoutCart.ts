@@ -8,9 +8,11 @@ export default async function handler(
     res: NextApiResponse
 ) {
     if (req.method === 'DELETE') {
-        const userId = parseInt(req.query?.userId, 10);
+        const userIdString = req.query?.userId;
 
-        if (userId) {
+        if (userIdString) {
+            const userId = parseInt(userIdString, 10);
+            
             try {
                 const user = await prisma.user.findUnique({
                     where: { id: userId },
