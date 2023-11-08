@@ -21,7 +21,7 @@ async function handleCheckout(total, items, session, router) {
         });
 
         const { sessionId } = await response.json();
-        const { result } = await stripe?.redirectToCheckout({
+        const result = await stripe?.redirectToCheckout({
             sessionId,
         });
 
