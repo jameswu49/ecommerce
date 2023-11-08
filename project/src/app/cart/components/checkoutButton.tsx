@@ -1,4 +1,4 @@
-import { loadStripe } from "@stripe/stripe-js";
+import { loadStripe, StripeError } from "@stripe/stripe-js";
 
 const stripePromise = loadStripe(
     process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
@@ -21,11 +21,11 @@ async function handleCheckout(total, items, session, router) {
         });
 
         const { sessionId } = await response.json();
-        const { error } = await stripe?.redirectToCheckout({
+        const { result } = await stripe?.redirectToCheckout({
             sessionId,
         });
 
-        if (error) {
+        if (result.error) {
             router.push("/error");
         }
     } catch (err) {
