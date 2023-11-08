@@ -10,9 +10,9 @@ export default async function handler(
     if (req.method === 'DELETE') {
         const userIdString = req.query?.userId;
 
-        if (userIdString) {
+        if (typeof userIdString === 'string') {
             const userId = parseInt(userIdString, 10);
-            
+
             try {
                 const user = await prisma.user.findUnique({
                     where: { id: userId },
@@ -20,8 +20,6 @@ export default async function handler(
                 });
 
                 const cartItems = user?.cart?.cartItems || [];
-
-                console.log(cartItems.map((item: any) => item.id))
 
                 await prisma.cartItem.deleteMany({
                     where: { id: { in: cartItems.map((item: any) => item.id) } },
