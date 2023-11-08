@@ -21,11 +21,11 @@ async function handleCheckout(total, items, session, router) {
         });
 
         const { sessionId } = await response.json();
-        const result = await stripe?.redirectToCheckout({
+        const { error } = await stripe?.redirectToCheckout({
             sessionId,
         });
 
-        if (result.error) {
+        if (error) {
             router.push("/error");
         }
     } catch (err) {
