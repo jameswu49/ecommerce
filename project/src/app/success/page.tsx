@@ -35,7 +35,7 @@ export default function Success() {
             router.push("/");
         }, 3000);
 
-    }, [userId, status, router])
+    }, [session, status, router])
 
     return (
         <section className="h-[60vh] flex flex-col items-center justify-center text-xl">
