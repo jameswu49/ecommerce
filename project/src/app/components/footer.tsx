@@ -1,15 +1,8 @@
 'use client'
 import Image from "../../../node_modules/next/image"
-import { usePathname } from "../../../node_modules/next/navigation"
 import logo from "../images/supreme.png"
 
 export default function Footer() {
-    const pathname = usePathname();
-
-    if (pathname === '') {
-        return null
-    }
-
     return (
         <footer className="h-auto w-full bg-[#F2F2F2] flex flex-col items-center px-5 pt-5 justify-evenly md:h-[20vh]">
             <div className="relative w-20 h-8 hidden md:block">

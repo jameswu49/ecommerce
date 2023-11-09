@@ -1,7 +1,6 @@
 'use client'
 import { useEffect } from "react";
 import Link from "../../../node_modules/next/link"
-import { FaTimes } from 'react-icons/fa';
 import links from "../data/links"
 import { useSidebarContext } from "../context/sidebarContext";
 import { useSpring, animated } from '@react-spring/web';
@@ -9,7 +8,7 @@ import { signIn, signOut, useSession } from "next-auth/react"
 
 
 export default function Sidebar() {
-    const { handleMenuToggle, handleActiveLink, isOpen } = useSidebarContext()
+    const { handleActiveLink, isOpen } = useSidebarContext()
 
     const { data: session } = useSession();
 
@@ -37,10 +36,9 @@ export default function Sidebar() {
             <div className="h-1/2 flex items-center">
                 <div className="flex flex-col h-1/2 justify-evenly font-semibold">
                     {links.map((elements, index) => (
-                        <Link key={index} href={elements.href} onClick={() => handleActiveLink(index)}>
+                        <Link key={index} href={elements.href} onClick={() => handleActiveLink()}>
                             <>
                                 {elements.name}
-                                {/* <div className={`${index === id ? 'border-t-[red] border-2' : ''}`} /> */}
                             </>
                         </Link>
                     ))}
