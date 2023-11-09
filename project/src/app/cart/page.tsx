@@ -50,6 +50,14 @@ export default function Cart() {
 
                     {/* Modal for user to log in and checkout or checkout as a guest*/}
                     {checkOutModal && <CheckOutModal checkOutModal={checkOutModal} handleCheckOutModal={handleCheckOutModal} setCheckOutModal={setCheckOutModal} status={status} handleLogIn={handleLogIn} router={router} items={items} session={session} total={total} />}
+                    <div className='my-3 pl-2'>
+                        <span className='font-bold'>When Checking Out:</span>
+                        <div className='flex flex-col'>
+                            <span>Card Number: 4242424242424242</span>
+                            <span>Date: Any Future Date</span>
+                            <span>CVC: Any 3 Digit Number</span>
+                        </div>
+                    </div>
                     <div className='min-h-[70vh] mb-5'>
                         {items?.map((data: any, index: number) => (
                             <div key={index} className="flex h-fit">
