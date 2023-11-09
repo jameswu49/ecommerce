@@ -3,22 +3,15 @@ import { useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
 
-interface UserData {
-    id?: number;
-    name?: string | null;
-    email?: string | null;
-    image?: string | null;
-}
-
 export default function Success() {
     const router = useRouter()
     const { data: session, status } = useSession();
 
     // If signed in, delete items from database else, clear localstorage. Then redirect to homepage 
     useEffect(() => {
-        const userId: UserData = session?.user?.id
+        if (status === 'authenticated') {
+            const userId = session?.user?.id
 
-        if (userId && status === 'authenticated') {
             const deleteCartItems = async () => {
                 try {
                     const response = await fetch(`/api/checkoutCart?userId=${userId}`, {
