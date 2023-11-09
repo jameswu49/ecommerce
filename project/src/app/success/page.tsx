@@ -9,9 +9,9 @@ export default function Success() {
 
     // If signed in, delete items from database else, clear localstorage. Then redirect to homepage 
     useEffect(() => {
-        const userId = session?.user?.id
+        const userId = session?.user?.id ?? undefined
 
-        if (userId && typeof userId === 'number' && status === 'authenticated') {
+        if (userId && status === 'authenticated') {
             const deleteCartItems = async () => {
                 try {
                     const response = await fetch(`/api/checkoutCart?userId=${userId}`, {
