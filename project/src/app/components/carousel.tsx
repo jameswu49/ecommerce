@@ -5,7 +5,7 @@ import Image from "../../../node_modules/next/image";
 import hat from "../images/hat.jpg"
 import money from "../images/money.jpg"
 import skateboard from "../images/skateboard.jpg"
-import person from "../images/person.jpg"
+import sign from "../images/sign.jpg"
 
 export default function HomeCarousel() {
     const responsive = {
@@ -47,8 +47,8 @@ export default function HomeCarousel() {
                 dotListClass="custom-dot-list-style"
                 itemClass="carousel-item-padding-40-px"
             >
+                <div><Image src={sign} alt={''} /></div>
                 <div><Image src={money} alt={''} /></div>
-                <div><Image src={person} alt={''} /></div>
                 <div><Image src={hat} alt={''} /></div>
                 <div><Image src={skateboard} alt={''} /></div>
             </Carousel>

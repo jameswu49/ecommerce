@@ -1,4 +1,5 @@
 'use client'
+import { useEffect } from "react";
 import Link from "../../../node_modules/next/link"
 import { FaTimes } from 'react-icons/fa';
 import links from "../data/links"
@@ -17,6 +18,19 @@ export default function Sidebar() {
         opacity: isOpen ? 1 : 0,
         config: { duration: 400 }
     });
+
+    useEffect(() => {
+        if (isOpen) {
+            document.body.classList.add('no-scroll');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            document.body.classList.remove('no-scroll');
+        }
+        return () => {
+            document.body.classList.remove('no-scroll');
+        };
+    }, [isOpen]);
+
 
     return (
         <animated.div className='fixed h-screen bg-white z-10 w-full flex justify-center lg:hidden' style={menuAnimation}>
