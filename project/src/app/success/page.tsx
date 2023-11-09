@@ -7,10 +7,10 @@ export default function Success() {
     const router = useRouter()
     const { data: session, status } = useSession();
 
+    const userId = session?.user?.id
+
     // If signed in, delete items from database else, clear localstorage. Then redirect to homepage 
     useEffect(() => {
-        const userId = session?.user?.id ?? undefined
-
         if (userId && status === 'authenticated') {
             const deleteCartItems = async () => {
                 try {
@@ -35,7 +35,7 @@ export default function Success() {
             router.push("/");
         }, 3000);
 
-    }, [session?.user.id, status, router])
+    }, [userId, status, router])
 
     return (
         <section className="h-[60vh] flex flex-col items-center justify-center text-xl">
