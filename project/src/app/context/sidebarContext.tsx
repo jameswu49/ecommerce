@@ -4,7 +4,7 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 interface SidebarContextType {
     isOpen: boolean;
     handleMenuToggle: () => void;
-    handleActiveLink: (newId: number) => void;
+    handleActiveLink: () => void;
 }
 
 const SidebarContext = createContext<SidebarContextType>({
