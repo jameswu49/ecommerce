@@ -49,7 +49,7 @@ export default function Navbar() {
     return (
         <nav className="h-[20vh] flex items-center justify-center text-center relative z-20 lg:p-5 lg:justify-between">
             <div>
-                {isOpen ? <Link href={'/'} onClick={() => handleActiveLink(-1)}>
+                {isOpen ? <Link href={'/'} onClick={() => handleActiveLink()}>
                     <div className="relative w-40 h-16 cursor-pointer lg:w-48">
                         <Image src={logo}
                             alt={'banner'}
@@ -76,8 +76,7 @@ export default function Navbar() {
             <div className='hidden lg:flex lg:justify-evenly lg:w-1/4 lg:mr-5'>
                 {navbarLinks.map((links, index) => (
                     <div key={index} className='flex flex-col'>
-                        <Link href={links.href} onClick={() => handleActiveLink(index)}>{links.name}</Link>
-                        {/* <div className={`${index === id ? 'border-t-[red] border-2' : ''}`} /> */}
+                        <Link href={links.href} onClick={() => handleActiveLink()}>{links.name}</Link>
                     </div>
                 ))}
                 {session ? (
