@@ -11,7 +11,7 @@ export default function Success() {
     useEffect(() => {
         const userId = session?.user?.id
 
-        if (userId && status === 'authenticated') {
+        if (userId && typeof userId === 'number' && status === 'authenticated') {
             const deleteCartItems = async () => {
                 try {
                     const response = await fetch(`/api/checkoutCart?userId=${userId}`, {
