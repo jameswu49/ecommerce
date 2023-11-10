@@ -71,7 +71,7 @@ export default function Navbar() {
             <div className='absolute right-[5%] top-[30%] text-2xl md:text-3xl lg:hidden' onClick={() => handleMenuToggle()}>
                 {!isOpen ? <FiMenu /> : <AiOutlineClose />}
             </div>
-            <div className='hidden lg:flex lg:justify-evenly lg:w-1/4 lg:mr-5'>
+            <div className='hidden lg:flex lg:justify-evenly lg:w-[35%] lg:mr-5'>
                 {navbarLinks.map((links, index) => (
                     <div key={index} className='flex flex-col'>
                         <Link href={links.href} onClick={() => handleActiveLink()}>{links.name}</Link>
