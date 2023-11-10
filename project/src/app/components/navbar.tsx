@@ -11,14 +11,12 @@ import { signIn, signOut, useSession } from "next-auth/react"
 
 export default function Navbar() {
     const [currentTimeString, setCurrentTimeString] = useState('');
-    const { handleMenuToggle, isOpen, handleActiveLink } = useSidebarContext()
+    const { handleMenuToggle, isOpen, handleActiveLink, accountOpen, setAccountIsOpen } = useSidebarContext()
 
     const { data: session } = useSession();
 
-    const [open, setIsOpen] = useState(false);
-
     const toggleDropdown = () => {
-        setIsOpen(!open);
+        setAccountIsOpen(!accountOpen)
     };
 
     const updateTime = () => {
@@ -84,7 +82,7 @@ export default function Navbar() {
                 ) : (
                     <div className='relative'>
                         <span className='cursor-pointer' onClick={toggleDropdown}>Account</span>
-                        {open && (
+                        {accountOpen && (
                             <div className='absolute border border-black w-[10rem] h-[6rem] right-[-2rem] top-9 flex flex-col justify-center gap-y-3 z-50 bg-white'>
                                 <div>
                                     <Link href={'/signup'} className="cursor-pointer" onClick={toggleDropdown}>
