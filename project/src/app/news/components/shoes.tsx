@@ -1,5 +1,5 @@
-import Image from "../../../node_modules/next/image"
-import shoe from "../images/shoes1.jpeg"
+import Image from "../../../../node_modules/next/image"
+import shoe from "../../images/shoes1.jpeg"
 
 export default function Shoes() {
     return (

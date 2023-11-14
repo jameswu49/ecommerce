@@ -46,11 +46,12 @@ export default function HomeCarousel() {
                 removeArrowOnDeviceType={["tablet", "mobile", "desktop"]}
                 dotListClass="custom-dot-list-style"
                 itemClass="carousel-item-padding-40-px"
+                className="lg:h-screen"
             >
-                <div><Image src={sign} alt={''} /></div>
-                <div><Image src={money} alt={''} /></div>
-                <div><Image src={hat} alt={''} /></div>
-                <div><Image src={skateboard} alt={''} /></div>
+                <div><Image src={sign} alt={'Supreme Store Sign'} /></div>
+                <div><Image src={money} alt={'Supreme Money Gun'} /></div>
+                <div><Image src={hat} alt={'Supreme Hat'} /></div>
+                <div><Image src={skateboard} alt={'Supreme Skateboard'} /></div>
             </Carousel>
         </section>
     )

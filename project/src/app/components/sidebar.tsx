@@ -33,7 +33,7 @@ export default function Sidebar() {
 
     return (
         <animated.div className='fixed h-screen bg-white z-10 w-full flex justify-center lg:hidden' style={menuAnimation}>
-            <div className="h-1/2 flex items-center">
+            <nav className="h-1/2 flex items-center">
                 <div className="flex flex-col h-1/2 justify-evenly font-semibold">
                     {links.map((elements, index) => (
                         <Link key={index} href={elements.href} onClick={() => handleActiveLink()}>
@@ -51,7 +51,7 @@ export default function Sidebar() {
                         </>
                     )}
                 </div>
-            </div>
+            </nav>
         </animated.div>
 
     )

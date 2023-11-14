@@ -83,7 +83,7 @@ export default function Cart() {
                                     </select>
                                 </div>
                                 <div className="border border-slate-200 w-[15%] flex items-center justify-center">${data.productPrice || data.product?.price}</div>
-                                <div className="border border-slate-200 w-[10%] flex items-center justify-center"><FaTrashAlt className='w-10 h-5 cursor-pointer' onClick={() => handleModal(index, setShowModal, setProductIndex)} /></div>
+                                <div className="border border-slate-200 w-[10%] flex items-center justify-center cursor-pointer hover:text-red-500" onClick={() => handleModal(index, setShowModal, setProductIndex)} ><FaTrashAlt className='w-10 h-5' /></div>
                             </div>
                         ))}
                     </div>

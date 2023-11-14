@@ -130,3 +130,9 @@ body {
         margin: 1rem 0;
     }
 }
+
+@media screen and (max-height: 768px) {
+    .font {
+        font-size: 10px;
+    }
+}

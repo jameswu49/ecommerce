@@ -1,5 +1,5 @@
-import Image from "../../../node_modules/next/image"
-import banner from "../images/banner.png"
+import Image from "../../../../node_modules/next/image"
+import banner from "../../images/banner.png"
 
 export default function Banner() {
     return (

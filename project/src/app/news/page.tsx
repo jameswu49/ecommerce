@@ -1,6 +1,6 @@
-import Banner from "../components/banner"
-import Shoes from "../components/shoes"
-import Collabs from "../components/collab"
+import Banner from "./components/banner"
+import Shoes from "./components/shoes"
+import Collabs from "./components/collab"
 
 export default function Home() {
     return (

@@ -74,24 +74,24 @@ export default function Navbar() {
             <div className='hidden lg:flex lg:gap-x-4 lg:mr-5'>
                 {navbarLinks.map((links, index) => (
                     <div key={index} className='flex flex-col'>
-                        <Link href={links.href} onClick={() => handleActiveLink()}>{links.name}</Link>
+                        <Link href={links.href} onClick={() => handleActiveLink()} className="hover:text-[red]">{links.name}</Link>
                     </div>
                 ))}
                 {session ? (
                     <div><button onClick={() => signOut()}>Sign Out</button></div>
                 ) : (
                     <div className='relative'>
-                        <span className='cursor-pointer' onClick={toggleDropdown}>Account</span>
+                        <span className='cursor-pointer hover:text-[red]' onClick={toggleDropdown}>Account</span>
                         {accountOpen && (
                             <div className='absolute border border-black w-[10rem] h-[6rem] right-[-2rem] top-9 flex flex-col justify-center gap-y-3 z-50 bg-white'>
                                 <div>
-                                    <Link href={'/signup'} className="cursor-pointer" onClick={toggleDropdown}>
+                                    <Link href={'/signup'} className="cursor-pointer hover:text-[red]" onClick={toggleDropdown}>
                                         Create Account
                                     </Link>
                                 </div>
                                 <hr />
                                 <div>
-                                    <button onClick={() => signIn()} className="cursor-pointer">Sign In</button>
+                                    <button onClick={() => signIn()} className="cursor-pointer hover:text-[red]">Sign In</button>
                                 </div>
                             </div>
                         )}
