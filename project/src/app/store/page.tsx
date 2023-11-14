@@ -1,4 +1,4 @@
-import { MobileStores, DesktopStores } from "../components/stores"
+import { MobileStores, DesktopStores } from "./components/stores"
 
 export default function Store() {
     return (

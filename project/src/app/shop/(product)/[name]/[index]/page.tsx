@@ -6,8 +6,8 @@ import { useSearchParams } from 'next/dist/client/components/navigation';
 import { useState } from 'react';
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { useSession } from "next-auth/react"
-import { useFetchProductDetails, handleAddToCart } from "../../../../util/indexApi"
-import { handleThumbnailImage, handleNextImage, handlePreviousImage, handleImageChange, updateQuantity, addToLocalStorage } from "../../../../util/indexFunctions"
+import { useFetchProductDetails, handleAddToCart } from "./util/indexApi"
+import { handleThumbnailImage, handleNextImage, handlePreviousImage, handleImageChange, updateQuantity, addToLocalStorage } from "./util/indexFunctions"
 import Modal from "../../../../components/modal"
 import { Oval } from 'react-loading-icons'
 
@@ -114,7 +114,7 @@ const Page: FC<pageProps> = ({ params }) => {
                                         </select>
                                     </div>
                                     <button
-                                        className='bg-[red] text-white button'
+                                        className='bg-[red] text-white button hover:bg-red-600'
                                         onClick={() => {
                                             if (session) {
                                                 handleAddToCart(session, product, imageUrls[0], setCartItems, setModal, modal, setIsAddingToCart, quantity, cartItems);

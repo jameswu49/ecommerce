@@ -1,7 +1,7 @@
 'use client'
 import { useState } from "react"
-import Image from "../../../node_modules/next/image"
-import data from "../data/storeLocations"
+import Image from "next/image"
+import data from "../../data/storeLocations"
 import { useTransition, animated } from '@react-spring/web';
 
 // Stores for mobile 
@@ -72,7 +72,7 @@ export function DesktopStores() {
                             {data[id].open2}
                         </p>
                         <div className="">
-                            <button className="border border-white py-1 px-4">View Map</button>
+                            <a href={data[id].maps} target="_blank" rel="noopener noreferrer" className="border border-white py-1 px-4">View Map</a>
                         </div>
                     </div>
                 </div>

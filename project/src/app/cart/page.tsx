@@ -1,10 +1,11 @@
 'use client'
+import Link from '../../../node_modules/next/link';
 import { useState } from 'react';
 import { FaTrashAlt } from "react-icons/fa";
 import { useSession } from "next-auth/react"
 import Image from '../../../node_modules/next/image';
 import { removeItem, removeLocalItem, FetchCartItems } from './util/cartApi';
-import { total } from '../util/indexFunctions';
+import { total } from '../shop/(product)/[name]/[index]/util/indexFunctions';
 import { handleQuantity, handleModal, itemsInCart, handleLogIn, handleCheckOutModal, handleCloseModal } from './util/cartPageFunctions';
 import { useRouter } from 'next/navigation';
 import CheckOutModal from './components/checkoutModal';
@@ -28,8 +29,9 @@ export default function Cart() {
     return (
         <section className='min-h-[90vh]'>
             {items?.length === 0 ? (
-                <div className='flex h-[50vh] items-center justify-center font-bold text-xl'>
+                <div className='flex flex-col gap-y-5 h-[50vh] items-center justify-center font-bold text-xl'>
                     <h1>Cart is empty.</h1>
+                    <Link href={'/shop'} className="text-sm border bg-[red] text-white p-2 font-bold">Check Out The Shop</Link>
                 </div>
             ) : (
                 <div>
@@ -51,7 +53,7 @@ export default function Cart() {
                     {/* Modal for user to log in and checkout or checkout as a guest*/}
                     {checkOutModal && <CheckOutModal checkOutModal={checkOutModal} handleCheckOutModal={handleCheckOutModal} setCheckOutModal={setCheckOutModal} status={status} handleLogIn={handleLogIn} router={router} items={items} session={session} total={total} />}
                     <div className='my-3 pl-2'>
-                        <span className='font-bold'>When Checking Out:</span>
+                        <span className='font-bold'>During Checkout, Use:</span>
                         <div className='flex flex-col'>
                             <span>Card Number: 4242424242424242</span>
                             <span>Date: Any Future Date</span>

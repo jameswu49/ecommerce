@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Image from "../../../node_modules/next/image";
 import { AiOutlineClose } from "react-icons/ai";
-import { closeModal } from "../util/indexFunctions"
+import { closeModal } from "../shop/(product)/[name]/[index]/util/indexFunctions"
 
 import { useSession } from "next-auth/react"
 
@@ -37,15 +37,14 @@ export default function Modal({ modal, setModal, cartItems, router, image }: Mod
                         <div>
                             <p className='text-xl font-semibold'>Added to cart.</p>
                         </div>
-                        <div className='flex flex-col items-center cursor-pointer' onClick={() => closeModal(modal, setModal)}>
+                        <div className='flex flex-col items-center cursor-pointer md:py-3' onClick={() => closeModal(modal, setModal)}>
                             <span><AiOutlineClose className='text-xl' /></span>
-                            <span>Close</span>
                         </div>
                     </div>
                     <hr className='bg-black' />
-                    <div className='flex justify-between'>
+                    <div className='flex justify-between lg:justify-around'>
                         <div className='m-4 w-1/2'>
-                            <Image src={image} height={500} width={500} alt="" />
+                            <Image src={image} height={500} width={500} alt={cartItems.product?.name} />
                         </div>
                         <div className='flex flex-col justify-center text-center md:text-lg'>
                             <h1>{session ? cartItems.productName : cartItems.product?.name}</h1>
@@ -54,7 +53,7 @@ export default function Modal({ modal, setModal, cartItems, router, image }: Mod
                     </div>
                     <hr className='bg-black' />
                     <div className='modal-buttons'>
-                        <button className='cart-button py-2 my-4 md:mt-4 md:mb-0 text-sm' onClick={() => router.push('/cart')}>VIEW CART</button>
+                        <button className='cart-button py-2 my-4 md:mt-4 md:mb-0 text-sm hover:bg-red-600' onClick={() => router.push('/cart')}>VIEW CART</button>
                         <button className='continue-button py-2 my-4 md:mt-4 md:mb-0 text-sm' onClick={() => closeModal(modal, setModal)}>CONTINUE SHOPPING</button>
                     </div>
                 </div>
