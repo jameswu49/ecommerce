@@ -14,6 +14,8 @@ Shopping Cart:
 - Add products to your shopping cart with a single click.
 - Easily manage and update your cart contents.
 
+![cart](project/src/app/images/cart.gif)
+
 User Authentication:
 - Create a user account to save items to account
 - Log in securely to access your account and order history.
