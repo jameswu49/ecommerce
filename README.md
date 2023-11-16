@@ -18,15 +18,18 @@ Shopping Cart:
 
 User Authentication:
 - Create a user account to save items to account
+
+![createAccount](project/src/app/images/createAccount.gif)
+
 - Log in securely to access your account and order history.
 
 ![login](project/src/app/images/login.gif)
   
 Checkout:
 - Checkout by logging in or checkout as a guest
-
-Payments:
 - Implemented Stripe api for easy and seemless purchasing
+
+![checkout](project/src/app/images/checkout.gif)
   
 Supreme Information:
 - Learn more about the Supreme brand, its history, and iconic collaborations.
