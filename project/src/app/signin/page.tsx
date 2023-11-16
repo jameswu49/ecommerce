@@ -16,7 +16,6 @@ export default function SignIn() {
         const result = await signIn("credentials", {
             username,
             password,
-            // callbackUrl: null, // Redirect URL after successful sign-in
         });
 
         if (result?.error) {
