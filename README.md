@@ -19,6 +19,8 @@ Shopping Cart:
 User Authentication:
 - Create a user account to save items to account
 - Log in securely to access your account and order history.
+
+
   
 Checkout:
 - Checkout by logging in or checkout as a guest
