@@ -8,8 +8,6 @@ Product Browsing:
 - Browse a curated selection of Supreme clothing products.
 - View detailed information about each product, including images and descriptions.
 
-![products](public/product.gif)
-
 Shopping Cart:
 - Add products to your shopping cart with a single click.
 - Easily manage and update your cart contents.
