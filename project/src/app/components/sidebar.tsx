@@ -47,7 +47,7 @@ export default function Sidebar() {
                     ) : (
                         <>
                             <div><button onClick={() => signIn()}>Sign In</button></div>
-                            <Link href={'/signup'}>Create Account</Link>
+                            <Link href={'/signup'} onClick={() => handleActiveLink()}>Create Account</Link>
                         </>
                     )}
                 </div>
