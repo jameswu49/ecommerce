@@ -48,10 +48,10 @@ export default function HomeCarousel() {
                 itemClass="carousel-item-padding-40-px"
                 className="lg:h-screen"
             >
-                <div><Image src={sign} alt={'Supreme Store Sign'} /></div>
-                <div><Image src={money} alt={'Supreme Money Gun'} /></div>
-                <div><Image src={hat} alt={'Supreme Hat'} /></div>
-                <div><Image src={skateboard} alt={'Supreme Skateboard'} /></div>
+                <div><Image src={sign} alt={'Supreme Store Sign'} priority /></div>
+                <div><Image src={money} alt={'Supreme Money Gun'} priority /></div>
+                <div><Image src={hat} alt={'Supreme Hat'} priority /></div>
+                <div><Image src={skateboard} alt={'Supreme Skateboard'} priority /></div>
             </Carousel>
         </section>
     )
