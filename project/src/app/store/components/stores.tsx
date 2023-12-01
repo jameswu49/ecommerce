@@ -53,7 +53,7 @@ export function DesktopStores() {
             <div className="w-full relative">
                 {transitions((style, id: number) => (
                     <animated.div style={style}>
-                        <Image src={data[id].src} alt={'store'} className="w-full h-[35rem] lg:h-[80vh]" />
+                        <Image src={data[id].src} alt={'store'} priority className="w-full h-[35rem] lg:h-[80vh]" />
                     </animated.div>))}
                 <div className="absolute bg-black opacity-70 w-[40%] h-full top-0 text-white">
                     <div className="ml-20 h-full flex flex-col gap-y-8 leading-8 justify-center">
