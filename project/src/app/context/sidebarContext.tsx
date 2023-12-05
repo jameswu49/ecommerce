@@ -32,7 +32,7 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({ children }) =>
     };
 
     const handleActiveLink = () => {
-        if (window.innerWidth < 768) {
+        if (window.innerWidth <= 768) {
             setIsOpen((prevIsOpen) => !prevIsOpen);
             setAccountIsOpen(false)
         } else {

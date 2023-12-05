@@ -9,8 +9,6 @@ export default function Shoes() {
                 <div className="relative w-full h-64 md:w-[40rem] md:h-[40rem] lg:w-[30rem] lg:h-[30rem] lg:mx-auto">
                     <Image src={shoe}
                         alt={'shoes'}
-                        fill
-                        objectFit=""
                     />
                 </div>
             </div>

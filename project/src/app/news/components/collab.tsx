@@ -19,6 +19,7 @@ export default function Collabs() {
                     <button className="border-white border-[1px] px-3 font-semibold lg:px-5 lg:py-1">Learn More</button>
                 </div>
             </div>
+            {/* Desktop Icons */}
             <div className="hidden lg:flex w-1/2 h-full items-end justify-evenly 2xl:h-[90%]">
                 {collabData.map((data, index) => (
                     <div key={index} className="w-[15%] h-[20%] max-h-32 flex justify-evenly cursor-pointer">
@@ -28,12 +29,13 @@ export default function Collabs() {
             </div>
             <div className="lg:w-1/2 lg:ml-auto">
                 <div className="mt-5 flex items-center w-full h-64 md:h-[35rem] justify-center lg:h-full lg:mt-0 2xl:max-h-[90%]">
-                    <Image src={collabData[id].src} alt={'shoes'} className='object-fill h-full md:w-full' />
+                    <Image src={collabData[id].src} alt={'shoes'} className='h-full md:w-full' />
                 </div>
+                {/* Mobile and Tablet Icons */}
                 <div className="w-full h-auto flex justify-evenly mx-auto mt-5 lg:hidden">
                     {collabData.map((data, index) => (
                         <div key={index} className="w-full cursor-pointer overflow-hidden relative md:h-32">
-                            <Image src={collabData[index].src} alt={collabData[index].alt} onClick={() => handleClick(index)} className='object-fill h-full' />
+                            <Image src={collabData[index].src} alt={collabData[index].alt} onClick={() => handleClick(index)} className='h-full' />
                         </div>
                     ))}
                 </div>

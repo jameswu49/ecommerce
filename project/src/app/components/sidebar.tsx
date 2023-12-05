@@ -13,7 +13,7 @@ export default function Sidebar() {
     const { data: session } = useSession();
 
     const menuAnimation = useSpring({
-        transform: isOpen ? 'translateY(0%)' : 'translateY(-100%)',
+        transform: isOpen ? 'translateY(0%)' : 'translateY(-200%)',
         opacity: isOpen ? 1 : 0,
         config: { duration: 400 }
     });
