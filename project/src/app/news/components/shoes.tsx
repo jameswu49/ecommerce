@@ -6,9 +6,10 @@ export default function Shoes() {
         <section className="flex flex-col justify-center items-center lg:flex-row lg:w-full lg:mb-5 lg:h-[40rem]">
             <div className="lg:w-1/2">
                 <h1 className="font-bold text-xl mb-5 text-center md:text-2xl lg:text-4xl">Nike Air Force x Supreme</h1>
-                <div className="relative w-full h-64 md:w-[40rem] md:h-[40rem] lg:w-[30rem] lg:h-[30rem] lg:mx-auto">
+                <div className="relative w-full h-60 md:w-[40rem] md:h-[40rem] lg:w-[30rem] lg:h-[30rem] lg:mx-auto">
                     <Image src={shoe}
                         alt={'shoes'}
+                        fill
                     />
                 </div>
             </div>
