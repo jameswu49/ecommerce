@@ -10,6 +10,7 @@ import { useFetchProductDetails, handleAddToCart } from "./util/indexApi"
 import { handleThumbnailImage, handleNextImage, handlePreviousImage, handleImageChange, updateQuantity, addToLocalStorage } from "./util/indexFunctions"
 import Modal from "../../../../components/modal"
 import { Oval } from 'react-loading-icons'
+import products from '@/app/data/products';
 
 
 interface pageProps {
@@ -58,7 +59,7 @@ const Page: FC<pageProps> = ({ params }) => {
                             <div className='w-3/4 mx-auto flex flex-col items-center justify-center lg:w-1/2'>
                                 <div className='relative flex justify-center'>
                                     <BsChevronLeft className="absolute left-0 top-[50%] bg-[red] text-white h-10 w-5 cursor-pointer" onClick={() => handlePreviousImage(arrayIndex, setImage, setArrayIndex, imageUrls)} />
-                                    <Image src={image} alt={`Picture of ${product.name}`} width={500} height={500} className='md:w-3/4 lg:w-[1000px]' />
+                                    <Image src={image} alt={`${product.name}`} width={500} height={500} className='md:w-3/4 lg:w-[1000px]' />
                                     <BsChevronRight className="absolute top-[50%] right-0 bg-[red] text-white h-10 w-5 cursor-pointer" onClick={() => handleNextImage(arrayIndex, imageUrls, setArrayIndex, setImage)} />
                                     <div className='absolute bg-[red] text-white bottom-0 px-2'>{arrayIndex + 1} / {imageUrls.length}</div>
                                 </div>
@@ -66,7 +67,7 @@ const Page: FC<pageProps> = ({ params }) => {
                                     <div className='flex justify-evenly my-2 gap-x-5'>
                                         {product?.colors.map((colors: any, index: number) => (
                                             <div key={index} >
-                                                <Image src={colors.colorImage} alt="" width={500} height={500} className='cursor-pointer h-12 w-12' onClick={() => handleImageChange(colors.colorImage, index, setImage, product, setImageUrls, setArrayIndex, setColorIndex)} />
+                                                <Image src={colors.colorImage} alt={colors.color + ' ' + product.name} width={500} height={500} className='cursor-pointer h-12 w-12' onClick={() => handleImageChange(colors.colorImage, index, setImage, product, setImageUrls, setArrayIndex, setColorIndex)} />
                                             </div>
                                         ))}
                                     </div>
@@ -75,7 +76,7 @@ const Page: FC<pageProps> = ({ params }) => {
                             <div className='hidden lg:flex gap-x-4'>
                                 {imageUrls.map((images, index) => (
                                     <div key={index} className='h-16 w-16 mt-10 flex items-center' >
-                                        <Image src={images} height={500} width={500} alt={''} className={`cursor-pointer p-1 ${arrayIndex === index ? 'border-2 border-[red]' : ''}`} onClick={() => handleThumbnailImage(images, index, setArrayIndex, setImage)} />
+                                        <Image src={images} height={500} width={500} alt={product.name} className={`cursor-pointer p-1 ${arrayIndex === index ? 'border-2 border-[red]' : ''}`} onClick={() => handleThumbnailImage(images, index, setArrayIndex, setImage)} />
                                     </div>
                                 ))}
                             </div>
@@ -94,7 +95,7 @@ const Page: FC<pageProps> = ({ params }) => {
                                 <div className='flex my-2 gap-x-5 justify-center'>
                                     {product?.colors.map((colors: any, index: number) => (
                                         <div key={index}>
-                                            <Image src={colors.colorImage} alt="" width={500} height={500} className='cursor-pointer h-12 w-12' onClick={() => handleImageChange(colors.colorImage, index, setImage, product, setImageUrls, setArrayIndex, setColorIndex)} />
+                                            <Image src={colors.colorImage} alt={product.name} width={500} height={500} className='cursor-pointer h-12 w-12' onClick={() => handleImageChange(colors.colorImage, index, setImage, product, setImageUrls, setArrayIndex, setColorIndex)} />
                                         </div>
                                     ))}
                                 </div>

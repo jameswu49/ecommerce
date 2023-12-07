@@ -29,7 +29,7 @@ export default function HomeCarousel() {
         }
     };
     return (
-        <section>
+        <section className="landscape:h-10">
             <Carousel
                 swipeable={true}
                 draggable={true}
@@ -37,7 +37,7 @@ export default function HomeCarousel() {
                 responsive={responsive}
                 ssr={true}
                 infinite={true}
-                autoPlay={true}
+                autoPlay={false}
                 autoPlaySpeed={3000}
                 keyBoardControl={true}
                 customTransition="all .5"
