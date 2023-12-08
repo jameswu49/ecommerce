@@ -37,7 +37,7 @@ export default function HomeCarousel() {
                 responsive={responsive}
                 ssr={true}
                 infinite={true}
-                autoPlay={false}
+                autoPlay={true}
                 autoPlaySpeed={3000}
                 keyBoardControl={true}
                 customTransition="all .5"
