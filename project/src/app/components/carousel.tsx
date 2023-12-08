@@ -29,7 +29,7 @@ export default function HomeCarousel() {
         }
     };
     return (
-        <section className="landscape:h-10">
+        <section>
             <Carousel
                 swipeable={true}
                 draggable={true}
